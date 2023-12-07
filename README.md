@@ -1,5 +1,5 @@
-# DoAn_BanDienThoai
-## Mo ta de tai
+# Phone Store
+## Mo ta
 <ul>
     <ul>
         <li> Tạo ra một web đáp ứng nhu cầu của người dùng. </li>
