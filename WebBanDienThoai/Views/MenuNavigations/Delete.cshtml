@@ -1,0 +1,98 @@
+﻿@model WebBanDienThoai.Models.MenuNavigation
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>MenuNavigation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Sequence)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sequence)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MenuName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MenuName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MenuParents)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MenuParents)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FormatPage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FormatPage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GroupLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PageContent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PageContent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PageLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PageLink)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

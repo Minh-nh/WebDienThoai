@@ -1,0 +1,38 @@
+﻿@{ 
+    Layout = null;
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">Cấp Quyền User-<span class="user_name_grant">@ViewBag.usergrant</span></h4>
+</div>
+<div class="modal-body">
+
+
+    <div class="message_permission"></div>
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            <h4>Danh sách Nghiệp Vụ</h4>
+            @Html.DropDownList("UserBusinessController", (IEnumerable<SelectListItem>)ViewBag.item, new { size = "8", onchange = "getPermissions('/Users/getPermissions/'+this.value,'" + Session["usergranted"] + "');" })
+        </div>
+
+        <div class="col-xs-12 col-md-6">
+            <h4>Danh sách Các Quyền</h4>
+            <div class="show_permission"></div>
+        </div>
+
+    </div>
+
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+</div>
+
+
+
+
+
+
+
+

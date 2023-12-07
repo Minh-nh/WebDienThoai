@@ -1,0 +1,79 @@
+﻿<!doctype html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+
+    @{ Html.RenderAction("MetaView", "Home");}
+
+
+    <title>@ViewBag.Title</title>
+    <meta name="title" content="@ViewBag.MetaTittes" />
+    <meta name="keywords" content="@ViewBag.MetaKeyword" />
+    <meta name="description" content="@ViewBag.MetaDescription" />
+
+    <script src="~/Content/ShopPage/js/jquery.min.js"></script>
+    <link href="~/Content/ShopPage/css/plugins.css" rel="stylesheet" />
+    <link href="~/Content/ShopPage/css/styles.css" rel="stylesheet" />
+    <link href="~/Content/ShopPage/css/home.css" rel="stylesheet" />
+    <link href="~/Content/ShopPage/css/pages.css" rel="stylesheet" />
+    <link href="~/Content/ShopPage/css/responsive.css" rel="stylesheet" />
+    <link href="~/Content/ShopPage/css/jquery.fancybox.css" rel="stylesheet" />
+    <script src="~/Content/ShopPage/js/jquery.fancybox.js"></script>
+    <script src="~/Content/Admin/assets/js/simple.money.format.js"></script>
+    <script>
+window.shop = {
+	template: "index",
+	moneyFomat: '{{amount}}₫'
+}
+    </script>
+
+    <div id="fb-root"></div>
+    <script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.11&appId=221096801755061';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</head>
+<body class="insHome index">
+
+    <div class="preloader">
+        <div id="cssload-loader">
+            <div class="cssload-dot"></div>
+            <div class="cssload-dot"></div>
+            <div class="cssload-dot"></div>
+            <div class="cssload-dot"></div>
+            <div class="cssload-dot"></div>
+            <div class="cssload-dot"></div>
+            <div class="cssload-dot"></div>
+            <div class="cssload-dot"></div>
+        </div>
+    </div>
+
+    <section class="insBody">
+        @{ Html.RenderAction("Header", "Home");}
+        <div class="insMain">
+            @RenderSection("slider", required: false)
+            @RenderBody()
+        </div>
+        @{Html.RenderAction("Footer", "Home");}
+    </section>
+
+    @{Html.RenderAction("BottomFixed", "Home");}
+
+    @RenderPage("~/Views/Home/QuickView.cshtml")
+
+    @RenderPage("~/Views/Home/ModalCart.cshtml")
+
+
+    <script src="~/Content/ShopPage/js/plugins.js"></script>
+    <script src="~/Content/ShopPage/js/inspired.js"></script>
+
+</body>
+</html>
+
+
+

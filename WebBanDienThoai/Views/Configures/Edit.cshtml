@@ -1,0 +1,264 @@
+﻿@model WebBanDienThoai.Models.Configure
+
+@{
+    ViewBag.Title = "Cấu hình chung và chân trang";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="createandedit">
+    <div class="row">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+
+            <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+                <div class="breadcrumb">
+                    <div class="breadcrumb-left">
+                        <i class="menu-icon fa fa-cogs" aria-hidden="true"></i>
+                        <a href="~/Admin/Articles" class="title_bread"> Cấu hình chân trang</a>
+                        <span style="color:#ccc;margin:0px 15px;font-size:20px;"> /</span>
+                        <span class="title_bread"> Chỉnh sửa</span>
+                    </div>
+                    <div class="breadcrumb-add">
+                        <input type="submit" value="Lưu Lại Cấu Hình" class="btn btn-primary" />
+                    </div>
+                </div><!-- /.breadcrumb -->
+
+
+            </div>
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ConfigID)
+            @Html.HiddenFor(model => model.Favicon)
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="background: #383838;color:#fff;">
+                        <span class="glyphicon glyphicon-star" aria-hidden="true">&nbsp;</span>Thay Đổi Logo WEBSITE
+                    </div>
+
+                    <div class="logo-up text-center" style="padding-bottom:20px;">
+
+                        <input type="hidden" id="hidLogoID" value="@Model.Logo" name="Logo" />
+
+                        <div id="showImage">
+                            <img src="@Model.Logo" id="image_showed" style="max-height:200px;" />
+                        </div>
+                        <a href="javascript:0" class="btn btn-primary btn-sm click_logo" style="clear: both;margin-top: 5px;">Chọn Ảnh</a>
+                        <a href="javascript:0" style="margin-top: 5px;" class="btn btn-danger btn-sm" id="dels">Xóa Logo</a>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default" style="border: none;">
+                    <div class="panel-heading" style="border: none;background: #383838;color:#fff;">
+                        <span class="glyphicon glyphicon-star" aria-hidden="true">&nbsp;</span>Địa chỉ chân trang
+                    </div>
+                    <div class="panel-body">
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Favicon, htmlAttributes: new { @class = "control-label" })
+                            <input type="file" name="favicon_image" />
+                            @if (Model.Favicon != "")
+                            {
+                                <img src="@Model.Favicon" alt="favicon" style="margin-top:10px; width:50px;" />
+                            }
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NameCompany, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.NameCompany, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NameCompany, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" }, rows = "5" })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextAreaFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" }, rows = "3" })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EmailReceive, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.EmailReceive, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EmailReceive, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Hotline, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Hotline, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Hotline, "", new { @class = "text-danger" })
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Map, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextAreaFor(model => model.Map, new { htmlAttributes = new { @class = "form-control" }, rows = "4" })
+                            @Html.ValidationMessageFor(model => model.Map, "", new { @class = "text-danger" })
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FanpageFacebook, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextAreaFor(model => model.FanpageFacebook, new { htmlAttributes = new { @class = "form-control" }, rows = "4" })
+                            @Html.ValidationMessageFor(model => model.FanpageFacebook, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IconFacebook, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.IconFacebook, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.IconFacebook, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IconTwiiter, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.IconTwiiter, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.IconTwiiter, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IconInstagram, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.IconInstagram, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.IconInstagram, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IconYoutube, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.IconYoutube, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.IconYoutube, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IconGoogle, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.IconGoogle, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.IconGoogle, "", new { @class = "text-danger" })
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            @*<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default" style="border: none;">
+                    <div class="panel-heading" style="border: none;background: #383838;color:#fff;">
+                        <span class="glyphicon glyphicon-star" aria-hidden="true">&nbsp;</span>Cấu Hình SEO
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MetaTitle, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.MetaTitle, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MetaTitle, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MetaKeyword, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.MetaKeyword, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MetaKeyword, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MetaDescription, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextAreaFor(model => model.MetaDescription, new { htmlAttributes = new { @class = "form-control" }, rows = "6" })
+                            @Html.ValidationMessageFor(model => model.MetaDescription, "", new { @class = "text-danger" })
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>*@
+
+
+
+
+
+        }
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    $('.click_logo').click(function () {
+        var finder = new CKFinder();
+        finder.selectActionFunction = function (url) {
+            $('#hidLogoID').val(url);
+            $('#image_showed').attr("src", url);
+
+
+        };
+
+        $('#dels').click(function () {
+
+            $('#hidLogoID').val("");
+            $('#image_showed').removeAttr("src");
+        });
+        finder.popup();
+    });
+
+
+
+
+
+</script>

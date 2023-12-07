@@ -1,0 +1,66 @@
+﻿
+@{
+
+    if (Session["UserID"] == null)
+    {
+
+        Response.Redirect("~/Login/LoginAccount");
+
+
+    }
+    else
+    {
+
+
+
+
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <title>@ViewBag.Title - Phone Store</title>
+            @RenderPage("_PartialView/_MetaPartial/_MetaPartial.cshtml")
+            @RenderPage("_PartialView/_CSSPartial/_CssPartial.cshtml")
+            <script src="~/Content/Admin/assets/js/jquery-2.1.4.min.js"></script>
+        </head>
+
+        <body class="no-skin">
+            @RenderPage("_PartialView/_TopbarPartial.cshtml")
+
+            <div class="main-container ace-save-state" id="main-container">
+                <script type="text/javascript">
+				try{ace.settings.loadState('main-container')}catch(e){}
+                </script>
+
+                @*Render Silder *@
+                @RenderPage("_PartialView/_SidebarPartial.cshtml")
+
+                @*End Render Silder *@
+                <div class="main-content">
+                    <div class="main-content-inner">
+
+
+                        <div class="page-content">
+
+
+
+
+
+                            @RenderBody()
+                        </div>
+                        <!-- /.page-content -->
+                    </div>
+                </div><!-- /.main-content -->
+
+                @RenderPage("_PartialView/_FooterPartial.cshtml")
+
+                <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+                    <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+                </a>
+            </div><!-- /.main-container -->
+            @RenderPage("_PartialView/_JSPartial/_ScriptPartial.cshtml")
+        </body>
+    </html>
+
+}
+}

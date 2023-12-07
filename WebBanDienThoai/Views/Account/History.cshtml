@@ -1,0 +1,75 @@
+﻿@model IEnumerable<WebBanDienThoai.Models.Order>
+
+<h2 style="text-align:center; margin-top:15px">Lịch Sử Đặt Hàng</h2>
+<hr />
+@if (Model.Count() == 0)
+{<h2 style="text-align:center; margin-top:15px">Không có lịch sử mua hàng</h2>
+    <hr />
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.customerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalMoney)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.PaymentName)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.customerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalMoney)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td>
+                    @{ if (item.Status == 1)
+                        {
+                            <p class="btn btn-warning btn-xs text-center">Đang giao hàng</p> }
+                        else if (item.Status == 2)
+                        {
+                            <p class="btn btn-danger btn-xs text-center">Đã hủy</p> }
+                        else if (item.Status == 3)
+                        {
+                            <p class="btn btn-success btn-xs text-center">Hoàn thành</p> }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Payment.PaymentName)
+                </td>
+                <td>
+
+                    @*<button style="background-color:yellowgreen"> @Html.ActionLink("Chi Tiết", "Details", new { id = item.orderID }) </button>*@
+                    <a class="btn btn-primary" href="@Url.Action("Details", new { id = item.orderID })">Chi Tiết</a>
+
+                </td>
+            </tr>
+        }
+
+    </table>
+}

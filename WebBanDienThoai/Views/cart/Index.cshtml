@@ -1,0 +1,155 @@
+﻿@model List<WebBanDienThoai.Models.CartModel>
+@{
+    ViewBag.Title = "Giỏ hàng của bạn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="insCartPage" class="bg_w ajax-cart-popup" style="margin-bottom: 30px">
+    <div class="container">
+        <div class="content">
+            <div id="AjaxifyCart" class="ajaxcart">
+                <h1 class="page-header">Giỏ Hàng </h1>
+
+
+                @if (Model.Count > 0)
+                {
+                    <div class="page-content">
+                        <div class="row">
+                            <div class="boxCart leftCart col-md-8 col-sm-12 col-xs-12 ">
+                                <div class="cart_header_labels hidden-xs clearfix">
+                                    <div class="label_item col-xs-12 col-sm-2 col-md-2">
+                                        <div class="cart_product first_item">
+                                            Sản phẩm
+                                        </div>
+                                    </div>
+                                    <div class="label_item col-xs-12 col-sm-3 col-md-3">
+                                        <div class="cart_description item">
+                                            Mô Tả
+                                        </div>
+                                    </div>
+                                    <div class="label_item col-xs-12 col-sm-2 col-md-2">
+                                        <div class="cart_price item">
+                                            Giá
+                                        </div>
+                                    </div>
+                                    <div class="label_item col-xs-12 col-sm-2 col-md-2">
+                                        <div class="cart_quantity item">
+                                            Số Lượng
+                                        </div>
+                                    </div>
+                                    <div class="label_item col-xs-12 col-sm-2 col-md-2">
+                                        <div class="cart_total item">
+                                            Tổng
+                                        </div>
+                                    </div>
+                                    <div class="label_item col-xs-12 col-sm-1 col-md-1">
+                                        <div class="cart_delete last_item">
+                                            Xóa
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ajax_content_cart">
+
+
+                                    @foreach (var item in Model)
+                                    {
+                                        <div class="list_product_cart clearfix">
+                                            <div class="cpro_item image col-xs-3 col-sm-2 col-md-2">
+                                                <div class="cpro_item_inner">
+                                                    <a href="#" class="cart__image">
+                                                        <img class="img-responsive" src="@item.Product.Images" alt="@item.Product.ProductName">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="cpro_item text-left title col-xs-9 col-sm-3 col-md-3">
+                                                <div class="cpro_item_inner">
+                                                    <a href="products/@item.Product.CategoryID/@item.Product.ProductID/@item.Product.Alias" target="_blank" class="product_name">
+                                                        @item.Product.ProductName
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="cpro_item price col-xs-9 col-sm-2 col-md-2">
+                                                <div class="cpro_item_inner">
+                                                    <span class="price product-price"><span class="money">@String.Format("{0:0,0₫}", item.Product.Price)</span></span>
+                                                </div>
+                                            </div>
+                                            <div class="cpro_item qty text-center col-xs-6 col-sm-2 col-md-2">
+                                                <div class="cpro_item_inner">
+                                                    <div class="ajaxcart__qty">
+                                                        <input type="number" class="ajaxcart__qty-num quanlity_cart" min="1" value="@item.Quanlity" data-id="@item.Product.ProductID" aria-label="quantity" pattern="[0-9]*">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="cpro_item line-price col-xs-12 col-sm-2 col-md-2 hidden-xs">
+                                                <div class="cpro_item_inner">
+                                                    <span class="price product-price money_line"><span class="money"> @String.Format("{0:0,0₫}", item.Product.Price * item.Quanlity)</span></span>
+                                                    <input type="hidden" value="@item.Product.Price * @item.Quanlity">
+                                                </div>
+                                            </div>
+                                            <div class="cpro_item remove col-xs-2 col-sm-1 col-md-1">
+                                                <div class="cpro_item_inner">
+                                                    <a href="javascript::0" class="cart__remove ajaxcart__remove" data-id="@item.Product.ProductID">
+                                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+
+                                    <div class="text-center">
+                                        <button type="button" id="btn_update_cart">Cập Nhật Giỏ Hàng</button>
+                                        <button type="button" id="delete_all_cart">Xóa Tất Cả</button>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="boxCart rightCart col-md-4 col-sm-12 col-xs-12 ">
+                                <div class="list_button_cart clearfix">
+
+                                    <div class="note_item">
+                                        <div class="note_cart">
+                                            <label class="control-label" for="CartSpecialInstructions">Ghi chú đơn hàng</label>
+                                            <textarea rows="6" name="note" class="form-control" placeholder="Bạn muốn mô tả rõ hơn về đơn hàng..." id="CartSpecialInstructions"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="actionCart clearfix text-right">
+                                        <p>
+                                            <span class="cart__subtotal-title pull-left"><b>Tổng tiền:</b></span>
+                                            <span class="h3 cart__subtotal pull-right"><span class="money">@String.Format("{0:0,0₫}", Model.Sum(x => x.Product.Price * x.Quanlity))</span></span>
+                                        </p>
+
+                                        <a class="btn con-ajax-cart btn-outline" href="/collections/all" title="Tiếp Tục Mua Sắm">Tiếp Tục Mua Sắm</a>
+                                        <input type="submit" name="checkout" class="btn btn-outline checkout btn-style-2" value="Thanh Toán">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="page-content not-item text-center">
+                        <div class="img text-center">
+                            <img src="~/Content/ShopPage/images/empty_cart.png" alt="Không có sản phẩm nào trong giỏ hàng của bạn">
+                        </div>
+                        <p>
+                            Không có sản phẩm nào trong giỏ hàng của bạn
+                        </p>
+                        <div class="ctnBuy">
+                            <a href="/" class="btn btn-outline closeCartLine">Tiếp tục mua hàng </a>
+                        </div>
+                    </div>
+
+                }
+
+
+
+            </div>
+        </div>
+    </div>
+</section>

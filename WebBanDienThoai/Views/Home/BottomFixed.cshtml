@@ -1,0 +1,21 @@
+﻿@model List<WebBanDienThoai.Models.Configure>
+
+<div class="tempFixed">
+@{ Html.RenderAction("HeaderCart","Home");}
+    <div class="itemFixed backTop">
+        <a href="javascript:void(0)"> <img src="~/Content/ShopPage/images/icon_top.png" alt=" Back to top" /></a>
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="itemFixed hotLine">
+            <label>
+                <a href="tel:@item.Hotline" title="Hotline">
+                    <span></span>
+                    <p>Tư vấn miễn phí(24/7)<br> <span>@item.Hotline</span></p>
+                </a>
+                <i></i>
+            </label>
+        </div>
+    }
+
+</div>

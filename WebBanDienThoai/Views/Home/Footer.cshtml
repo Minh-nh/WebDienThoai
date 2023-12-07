@@ -1,0 +1,58 @@
+﻿
+    @model List<WebBanDienThoai.Models.Configure>
+
+    @foreach (var item in Model)
+    {
+
+        <footer id="insFooter" class="insFooter styleNew">
+            <div class="container">
+                <div class="footer-bottom">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                            <div class="logo_footer">
+                                <img src="@item.Logo" alt="@item.NameCompany">
+                            </div>
+                            <h3 class="text_h3">@item.NameCompany</h3>
+                            <p class="text-description">@item.Description</p>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                            <div class="transaction_foot">
+                                <h3 class="center_tran_text">Địa chỉ cửa hàng</h3>
+                                <ul class="text_transac">
+                                    <li><i class="fa fa-home" aria-hidden="true"></i> @item.Address </li>
+                                    <li><i class="fa fa-phone" aria-hidden="true"></i> @item.Hotline - @item.Phone</li>
+                                    <li><i class="fa fa-envelope-o" aria-hidden="true"></i> @item.Email</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                            <div class="transaction_foot">
+                                <h3 class="center_tran_text">Bản Đồ</h3>
+                                @Html.Raw(item.Map)
+                                </div>
+                            </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                            <div class="facebook-fanpage">
+                                <div class="transaction_foot">
+                                    <h3 class="center_tran_text">Mạng Xã Hội</h3>
+                                </div>
+                                @Html.Raw(item.FanpageFacebook)
+                            </div>
+                            <div class="social-mxh">
+                                <ul>
+                                    <li><a href="@item.IconFacebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                    <li><a href="@item.IconTwiiter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                    <li><a href="@item.IconInstagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                    <li><a href="@item.IconYoutube"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                                    <li><a href="@item.IconGoogle"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    }

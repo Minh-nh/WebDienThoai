@@ -1,0 +1,37 @@
+﻿@model WebBanDienThoai.Models.Customer
+
+<div>
+    <h2 style="text-align:center; margin-top:15px">Thông tin khách hàng</h2>
+    <hr />
+</div>
+
+<form style="width: 500px; height: auto; margin-top: 15px; margin-right: 200px; margin-left:200px ;">
+    <div class="form-group">
+        <label> @Html.DisplayNameFor(model => model.customerName)</label> <br />
+        <input style="width: 900px" type="text" readonly value="  @Html.DisplayFor(model => model.customerName)" />
+    </div>
+    <div class="form-group">
+        <label> @Html.DisplayNameFor(model => model.Email)</label> <br />
+        <input type="text" style="width: 900px" readonly value="  @Html.DisplayFor(model => model.Email)" />
+    </div>
+    <div class="form-group">
+        <label> @Html.DisplayNameFor(model => model.Phone)</label> <br />
+        <input type="text" style="width: 900px" readonly value="  @Html.DisplayFor(model => model.Phone)" />
+    </div>
+    <div class="form-group">
+        <label> @Html.DisplayNameFor(model => model.Address)</label> <br />
+        <input type="text" style="width: 900px" readonly value="  @Html.DisplayFor(model => model.Address)" />
+    </div>
+    <div class="form-group">
+        <label> @Html.DisplayNameFor(model => model.CreatedAt)</label> <br />
+        <input type="text" style="width: 900px" readonly value="  @Html.DisplayFor(model => model.CreatedAt)" />
+    </div>
+
+    <div class="form-group" style="display: flex; justify-content: space-between; width: 500px; height: auto; margin-top: 15px; margin-right: 200px; margin-left:200px ;">
+        <a class="btn btn-primary" href="@Url.Action("Edit", new { id = Model.customerID })">Chỉnh sửa thông tin</a>
+        <a class="btn btn-primary" href="@Url.Action("ChangePassword", new { id = Model.customerID })">Đổi mật khẩu</a>
+    </div>
+</form>
+
+
+

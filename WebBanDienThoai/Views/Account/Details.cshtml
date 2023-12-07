@@ -1,0 +1,42 @@
+﻿@model IEnumerable<WebBanDienThoai.Models.OrderDetail>
+<h1 style="text-align:center; color:blue"> Chi Tiết Đơn Hàng</h1>
+<table class="table" style="margin-left:50px">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quanlity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalProduct)
+        </th>
+      
+        <th>
+            @Html.DisplayNameFor(model => model.Product.ProductName)
+        </th>
+      
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Price)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Quanlity)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TotalProduct)
+    </td>
+    
+    <td>
+        @Html.DisplayFor(modelItem => item.Product.ProductName)
+    </td>
+    <td>
+    </td>
+</tr>
+}
+
+</table>

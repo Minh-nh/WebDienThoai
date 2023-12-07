@@ -1,0 +1,452 @@
+﻿
+
+@model WebBanDienThoai.Models.Product
+
+@{ ViewBag.Title = "Tạo Mới sản phẩm";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml"; }
+
+
+
+<div class="curd" style="margin-right:70px;width:100%;">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data", id = "form-create-product" }))
+    {
+
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <div class="breadcrumb">
+                <div class="breadcrumb-left">
+                    <i class="menu-icon fa fa-user" aria-hidden="true"></i>
+                    <a href="~/Products/Index" class="title_bread"> Danh sách sản phẩm</a>
+                    <span style="color:#ccc;margin:0px 15px;font-size:20px;"> /</span>
+                    <span class="title_bread"> Thêm Mới</span>
+                </div>
+                <div class="breadcrumb-add">
+                    @Html.ActionLink("Hủy", "Index", "", new { @class = "btn btn-default" })
+                    <input type="submit" value="Lưu Lại" class="btn btn-primary" />
+                </div>
+            </div><!-- /.breadcrumb -->
+
+
+        </div>
+
+        <div class="createandedit">
+
+            <div class="row">
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <p style="color:red;font-weight:bold;text-align:center;">@ViewBag.check_name</p>
+                <p style="color:red;font-weight:bold;text-align:center;">@ViewBag.check_alias</p>
+                <p style="color:red;font-weight:bold;text-align:center;">@ViewBag.errorkey</p>
+
+                <div class="col-xs-12 col-md-8">
+
+                    <div class="editcreate">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Alias, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.Alias, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+
+
+
+
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.TextAreaFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" }, id = "txtContent" })
+                            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DescriptShort, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.TextAreaFor(model => model.DescriptShort, new { htmlAttributes = new { @class = "form-control" }, rows = "4" })
+                            @Html.ValidationMessageFor(model => model.DescriptShort, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+
+
+                    </div>
+
+
+
+
+
+                    <div class="des-product-info-images">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="tepi">
+                                    <div class="pull-left">
+                                        <p style="font-weight:bold;">Hình ảnh</p>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="javascript:0" onclick="performClick('uploadFile');">Chọn hình</a>
+                                    </div>
+                                </div>
+
+                                <input type="file" name="image_product" class="hidden" multiple id="uploadFile" onchange="loadFile(event);" />
+
+
+                                <div class="jiuos" onclick="performClick('uploadFile');">
+                                    <svg class="next-icon-product next-icon-product-80 next-upload-product-dropzone__icon" value="Chọn hình">
+                                        <svg id="next-photos-80" class="icon-symbol--loaded" width="100%" height="100%">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+                                                <path d="M80 57.6l-4-18.7v-23.9c0-1.1-.9-2-2-2h-3.5l-1.1-5.4c-.3-1.1-1.4-1.8-2.4-1.6l-32.6 7h-27.4c-1.1 0-2 .9-2 2v4.3l-3.4.7c-1.1.2-1.8 1.3-1.5 2.4l5 23.4v20.2c0 1.1.9 2 2 2h2.7l.9 4.4c.2.9 1 1.6 2 1.6h.4l27.9-6h33c1.1 0 2-.9 2-2v-5.5l2.4-.5c1.1-.2 1.8-1.3 1.6-2.4zm-75-21.5l-3-14.1 3-.6v14.7zm62.4-28.1l1.1 5h-24.5l23.4-5zm-54.8 64l-.8-4h19.6l-18.8 4zm37.7-6h-43.3v-51h67v51h-23.7zm25.7-7.5v-9.9l2 9.4-2 .5zm-52-21.5c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3zm-13-10v43h59v-43h-59zm57 2v24.1l-12.8-12.8c-3-3-7.9-3-11 0l-13.3 13.2-.1-.1c-1.1-1.1-2.5-1.7-4.1-1.7-1.5 0-3 .6-4.1 1.7l-9.6 9.8v-34.2h55zm-55 39v-2l11.1-11.2c1.4-1.4 3.9-1.4 5.3 0l9.7 9.7c-5.2 1.3-9 2.4-9.4 2.5l-3.7 1h-13zm55 0h-34.2c7.1-2 23.2-5.9 33-5.9l1.2-.1v6zm-1.3-7.9c-7.2 0-17.4 2-25.3 3.9l-9.1-9.1 13.3-13.3c2.2-2.2 5.9-2.2 8.1 0l14.3 14.3v4.1l-1.3.1z"></path>
+                                            </svg>
+                                        </svg>
+                                    </svg>
+                                    <p style="color:#c3cfd8;text-align:center;">Sử dụng nút <strong>Chọn hình</strong> để thêm hình.</p>
+                                </div>
+
+
+                                <div id="showme">
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="des-product-info">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label" })
+
+                                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", placeholder = "₫" } })
+                                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+
+                                </div>
+
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PriceSale, htmlAttributes: new { @class = "control-label" })
+
+                                    @Html.EditorFor(model => model.PriceSale, new { htmlAttributes = new { @class = "form-control", placeholder = "₫" } })
+                                    @Html.ValidationMessageFor(model => model.PriceSale, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Quanlity, htmlAttributes: new { @class = "control-label" })
+
+                                    @Html.EditorFor(model => model.Quanlity, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Quanlity, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+             
+
+
+
+                </div>
+
+
+                <div class="col-xs-12 col-md-4">
+                    <div class="visible-status">
+                        <p class="title_st">Hiển thị</p>
+                        <div class="check-st">
+                            <div class="show-st">
+                                <input type="radio" name="status_mi" value="true" checked /> <span class="hideshow">Hiện</span>
+                            </div>
+                            <div class="show-st">
+                                <input type="radio" name="status_mi" value="false" /> <span class="hideshow">Ẩn</span>
+                            </div>
+                        </div>
+
+                        <div class="time-stamp">
+                            <p class="title_sts"> Thời Gian:</p>
+                            <input type="text" value="@DateTime.Now" disabled />
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="bot-des-more">
+                        <h3 class="title_pl">Phân loại</h3>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CategoryID, "Nhón Sản Phẩm", htmlAttributes: new { @class = "control-label" })
+                            <span class="custom-dropdown custom-dropdown-white">
+                                @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control custom-dropdown-select" })
+                            </span>
+                            @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+                    <div class="image-avatar">
+                        <p class="title_anh">Ảnh đại diện</p>
+
+                        <div class="frame-image">
+                            <div class="noset-image">
+                                <div class="select-image"><i class="fa fa-picture-o" aria-hidden="true"></i><br />Chọn hình</div>
+                                <input type="hidden" id="hidProductID" value="" name="Images" />
+                            </div>
+
+
+                            <div id="showImage">
+                                <img id="image_showed" width="100%" />
+                                <a class="delete_imgavt" href="javascript::0">Xóa hình</a>
+                            </div>
+
+                        </div>
+
+                        <a href="javascript::0" class="change_image">Thay hình ảnh</a>
+
+                    </div>
+
+
+
+
+
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+
+        <div class="text-left" style="margin-top:20px;">
+            <i class="fa fa-angle-double-left" aria-hidden="true" style="color:red !important;"></i>  @Html.ActionLink("Trở lại trang trước", "Index", "", new { style = "color:red;font-size:12px;" })
+        </div>
+
+    }
+
+</div>
+
+
+
+
+<script type="text/javascript">
+    function performClick(elemId) {
+        var elem = document.getElementById(elemId);
+        if (elem && document.createEvent) {
+            var evt = document.createEvent("MouseEvents");
+            evt.initEvent("click", true, false);
+            elem.dispatchEvent(evt);
+        }
+    }
+</script>
+
+
+@*<script type="text/javascript">
+    function performClick2(elemId) {
+       var elem = document.getElementById(elemId);
+       if(elem && document.createEvent) {
+          var evt = document.createEvent("MouseEvents");
+          evt.initEvent("click", true, false);
+          elem.dispatchEvent(evt);
+       }
+    }
+    </script>*@
+
+
+@*<script type="text/javascript">
+                function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        $('.noset-image').hide();
+                        $('.change_image').css("display","block");
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#image_showed')
+                                .attr('src', e.target.result);
+                        };
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+    </script>*@
+
+
+
+
+<script>
+    var loadFile = function (event) {
+        $('.jiuos').hide();
+        $("#showme").html("");
+        var files = event.target.files;
+        for (var i = 0; i < files.length; i++) {
+            $("#showme").append("<div class='more_img'>  <img src='" + URL.createObjectURL(event.target.files[i]) + "' class='img_pro' /></div>");
+
+            $('.remove_images').click(function () {
+                $(this).next('.img_pro').remove();
+                $(this).remove();
+            });
+
+
+            $('.more_img').hover(function () {
+                $(this).find("a").show();
+            },
+                function () {
+                    $(this).find("a").hide();
+                });
+
+        }
+    }
+
+
+</script>
+
+
+@*<script>
+
+            $('#uploadFile').change(function () {
+                var fileUpload = $('#uploadFile').get(0);
+                var files = fileUpload.files;
+                var formData = new FormData();
+                formData.append("fileproductmore", files[0]);
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("inserImageMore")',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (urlImage) {
+                        $("#showme").append("<div class='more_img'> <a class='remove_images' href='javascript::0'><i class='fa fa-trash-o' aria-hidden='true'></i> Xóa</a> <img src=/Upload/Images/" + urlImage + " class='img_pro' /></div>");
+                    }, error: function (err) {
+                        alert("Có lỗi xảy ra vui lòng thử lại" + err.statusText);
+                    }
+
+
+                });
+            });
+
+    </script>*@
+
+
+
+<script>
+
+    $('.select-image,.change_image').click(function () {
+        var finder = new CKFinder();
+        finder.selectActionFunction = function (url) {
+            $('.noset-image').hide();
+            $('#hidProductID').val(url);
+            $('.change_image').css("display", "block");
+            $('#image_showed').attr("src", url);
+            $('.delete_imgavt').css("display", "block");
+
+        };
+
+        $('.delete_imgavt').click(function () {
+            $('#image_showed').removeAttr("src");
+            $(this).hide();
+            $('.change_image').css("display", "none");
+            $('.noset-image').show();
+        });
+        finder.popup();
+    });
+
+
+
+
+
+</script>
+
+
+
+
+
+
+<script>
+
+
+
+    $("#ProductName").keyup(function () {
+        var Text = $(this).val();
+        Text = Text.toLowerCase();
+        $("#Alias").val(convertToSlug(Text));
+    });
+
+
+    $("#ProductName").mouseout(function () {
+        var Text = $(this).val();
+        Text = Text.toLowerCase();
+        $("#Alias").val(convertToSlug(Text));
+    });
+</script>
+
+
+<script>
+    $('#Price,#PriceSale').focusout(function (e) {
+        $(this).val(formatCurrency(this.value.replace(/[,đ]/g, '')));
+    }).on('keypress', function (e) {
+        if (!$.isNumeric(String.fromCharCode(e.which))) e.preventDefault();
+    }).on('paste', function (e) {
+        var cb = e.originalEvent.clipboardData || window.clipboardData;
+        if (!$.isNumeric(cb.getData('text'))) e.preventDefault();
+    });
+    function formatCurrency(number) {
+        var n = number.split('').reverse().join("");
+        var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");
+        return n2.split('').reverse().join('');
+    }
+
+</script>
+
+
+
+<script>
+    $("#form-create-product").submit(function () {
+        var price = $("#Price").val();
+
+        price = price.toString();
+        price = price.replace(",", "");
+        price = price.replace(",", "");
+        price = price.replace(",", "");
+
+        var pricesale = $("#PriceSale").val();
+        pricesale = pricesale.toString();
+        pricesale = pricesale.replace(",", "");
+        pricesale = pricesale.replace(",", "");
+        pricesale = pricesale.replace(",", "");
+
+
+        $("#Price").val(price);
+        $("#PriceSale").val(pricesale);
+    });
+
+</script>

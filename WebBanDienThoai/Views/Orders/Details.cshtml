@@ -1,0 +1,384 @@
+﻿@model WebBanDienThoai.Models.Order
+
+@{
+    ViewBag.Title = "Chi tiết Đơn Hàng #" + Model.orderID;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="curd" style="margin-right:70px;width:100%;">
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <div class="breadcrumb">
+            <div class="breadcrumb-left">
+                <i class="menu-icon fa fa-user" aria-hidden="true"></i>
+                <a href="~/Orders" class="title_bread"> Tất cả đơn hàng</a>
+                <span style="color:#ccc;margin:0px 15px;font-size:20px;"> /</span>
+                <span class="title_bread"> #@Model.orderID</span>
+                <span style="color:#ccc;margin:0px 15px;font-size:20px;"> /</span>
+                <span class="title_bread"> @Model.CreatedAt</span>
+            </div>
+            <div class="breadcrumb-add">
+                @Html.ActionLink("Quay Lại", "Index", "", new { @class = "btn btn-default" })
+                <a href="" class="btn btn-sm btn-primary" id="button_prints">In đơn hàng</a>
+            </div>
+        </div><!-- /.breadcrumb -->
+
+
+    </div>
+
+
+
+
+
+
+    <div class="createandedit">
+
+        <div class="row">
+
+            <div class='text-center alert alert-warning alert-sm' style="display:none;@TempData["displayviss"]">
+                @TempData["error_order_delete"]
+             </div>
+
+
+            <div class="col-xs-12 col-md-8">
+
+                <div class="editcreate">
+
+
+                    <div class="ctdhs">
+                        Chi tiết đơn hàng
+                    </div>
+                    <div class="status_dh">
+                        <svg class="svg-next-icon svg-next-icon-size-16 svg-next-icon-gray">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#next-order-unfulfilled-16">
+                                <svg id="next-order-unfulfilled-16" width="100%" height="100%"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" enable-background="new 0 0 16 16"><g><path d="M13.9130435,0 L2.08695652,0 C0.936347826,0 0,0.936347826 0,2.08695652 L0,14.2608696 C0,15.2194783 0.780521739,16 1.73913043,16 L14.2608696,16 C15.2194783,16 16,15.2194783 16,14.2608696 L16,2.08695652 C16,0.936347826 15.0636522,0 13.9130435,0 L13.9130435,0 Z M13.9130435,2.08695652 L13.9130435,10.4347826 L12.173913,10.4347826 C11.2153043,10.4347826 10.4347826,11.2153043 10.4347826,12.173913 L10.4347826,12.8695652 C10.4347826,13.0615652 10.2789565,13.2173913 10.0869565,13.2173913 L5.2173913,13.2173913 C5.0253913,13.2173913 4.86956522,13.0615652 4.86956522,12.8695652 L4.86956522,12.173913 C4.86956522,11.2153043 4.08904348,10.4347826 3.13043478,10.4347826 L2.08695652,10.4347826 L2.08695652,2.08695652 L13.9130435,2.08695652 L13.9130435,2.08695652 Z"></path></g></svg></svg>
+                            </use>
+                        </svg>
+
+                        @{
+                            if (Model.Status == 1)
+                            {
+                                <span>Chưa hoàn thành</span>
+                            }
+                            else if (Model.Status == 2)
+                            {
+                                <span>Đã hủy</span>
+                            }
+                            else if (Model.Status == 3)
+                            {
+                                <span>Đã hoàn thành</span>
+                            }
+                        }
+
+                    </div>
+
+
+                    <div class="detail_product">
+                        <div class="text-center details_sps">Thông tin sản phẩm</div>
+                        <table>
+
+                            @foreach (var item in ViewBag.order_item)
+                            {
+                                <tr class="bottom_order">
+                                    <td class="image_order"><img src="@item.Images" alt="@item.ProductName" /></td>
+                                    <td class="product_order_title"><a target="_blank" href="/Products/Edit/@item.ProductID">@item.ProductName</a></td>
+                                    <td class="product_price_order">@string.Format("{0:0,0 đ}", item.Price) <span class="xxx_quan">x</span> <span class="quanlity_order">@item.Quanlity</span></td>
+                                    <td class="total_price">@string.Format("{0:0,0 đ}", item.Price * item.Quanlity)</td>
+
+                                </tr>
+                            }
+
+
+                            <tr>
+                                <td class="total_money_price">Số tiền phải thanh toán: <span>@string.Format("{0:0,0 đ}", Model.TotalMoney)</span></td>
+                            </tr>
+
+
+                        </table>
+
+
+
+                        @{
+                            if (Model.Status == 1 || Model.Status == 3)
+                            {
+                                <div class="xacthucorrder">
+                                    <div class="pull-left left-pric">
+                                        <svg class="svg-next-icon svg-next-icon-size-20 svg-next-icon-gray">
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#next-checkmark">
+                                                <svg id="next-checkmark" class="icon-symbol--loaded" width="100%" height="100%"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 18c-.265 0-.52-.105-.707-.293l-6-6c-.39-.39-.39-1.023 0-1.414s1.023-.39 1.414 0l5.236 5.236L18.24 2.35c.36-.42.992-.468 1.41-.11.42.36.47.99.11 1.41l-12 14c-.182.212-.444.338-.722.35H7z"></path></svg></svg>
+                                            </use>
+                                        </svg>
+                                        <span class="text-xacnhan">Xác nhận đơn hàng</span>
+                                    </div>
+
+                                    @if (Model.Status == 1)
+                                    {
+                                        <div class="button-xacnhan">
+                                            <a class="btn btn-primary btn-sm" href="/Orders/xacThucDonHang/@Model.orderID">
+                                                XÁC NHẬN ĐƠN HÀNG
+                                            </a>
+                                        </div>
+                                    }
+                                    else if (Model.Status == 3)
+                                    {
+                                        <div class="button-xacnhan">
+                                            <a class="btn btn-primary btn-sm" href="javascript::0">
+                                                ĐƠN HÀNG ĐÃ ĐƯỢC XÁC NHẬN
+                                            </a>
+                                        </div>
+                                    }
+
+
+                                </div>
+                            }
+                        }
+
+
+                        @{
+                            if (Model.Status == 1 || Model.Status == 2)
+                            {
+                                <div class="xacthucorrder">
+                                    <div class="pull-left left-pric">
+                                        <svg class="svg-next-icon svg-next-icon-size-20 svg-next-icon-gray">
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#next-checkmark">
+                                                <svg id="next-checkmark" class="icon-symbol--loaded" width="100%" height="100%"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 18c-.265 0-.52-.105-.707-.293l-6-6c-.39-.39-.39-1.023 0-1.414s1.023-.39 1.414 0l5.236 5.236L18.24 2.35c.36-.42.992-.468 1.41-.11.42.36.47.99.11 1.41l-12 14c-.182.212-.444.338-.722.35H7z"></path></svg></svg>
+                                            </use>
+                                        </svg>
+                                        <span class="text-xacnhan">Hủy đơn hàng</span>
+                                    </div>
+
+                                    @if (Model.Status == 2)
+                                    {
+                                        <div class="button-huy">
+                                            <a class="btn btn-warning btn-sm" href="javascript::0">ĐƠN HÀNG NÀY ĐÃ HỦY</a>
+                                        </div>
+                                    }
+                                    else if (Model.Status == 1)
+                                    {
+                                        <div class="button-huy">
+                                            <a class="btn btn-warning btn-sm" href="/Orders/huyDonhang/@Model.orderID">HỦY ĐƠN HÀNG</a>
+                                        </div>
+                                    }
+
+
+                                </div>
+                            }
+
+                        }
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-xs-12 col-md-4">
+                <div class="order_customer">
+                    <div class="sumb">
+                        <p class="text-kh pull-left">Khách hàng</p>
+                        <img class="pull-right" src="~/Content/Admin/assets/images/cus_order.png" />
+                    </div>
+                    <p class="name_cus">@ViewBag.Cus.customerName</p>
+
+
+                    <div class="tt-order">
+                        <p class="text_thss">Thông tin đơn hàng</p>
+                        <p class="texts-order"><span style="color:#000;">Email: </span>@ViewBag.Cus.Email</p>
+                    </div>
+
+                    <div class="tt-order">
+                        <p class="text_thss">ĐỊA CHỈ GIAO HÀNG</p>
+                        <p class="texts-order"><span style="color:#000;">Địa chỉ: </span>@ViewBag.Cus.Address</p>
+                        <p class="texts-order"><span style="color:#000;">Số điện thọai: </span>@ViewBag.Cus.Phone</p>
+                    </div>
+
+
+
+                    <div class="tt-order">
+                        <p class="text_thss">Phương thức thanh toán</p>
+                        <p class="texts-order"><span style="color:#000;"></span>@Model.Payment.PaymentName</p>
+                    </div>
+
+                    <div class="tt-order">
+                        <p class="text_thss">ngày đặt đơn hàng</p>
+                        <p class="texts-order"><span style="color:#000;">Thời gian: </span>@Model.CreatedAt</p>
+                    </div>
+
+
+
+                    <div class="tt-order">
+                        <p class="text_thss">Trạng thái đơn hàng</p>
+                        @{
+                            if (Model.Status == 1)
+                            {
+                                <span class="statys">Chưa hoàn thành</span>
+                            }
+                            else if (Model.Status == 2)
+                            {
+                                <span class="statys">Đã hủy</span>
+                            }
+                            else if (Model.Status == 3)
+                            {
+                                <span class="statys">Đã hoàn thành</span>
+                            }
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+            </div>
+
+
+
+
+    <div class="text-center">
+        <a href="/Orders/Delete/@Model.orderID" class="btn btn-lg btn-danger delete_orderss btn_confirm">Xóa Đơn Hàng</a>
+    </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    #printorders{
+        display:none;
+    }
+</style>
+
+
+
+
+<div style="margin:0;font-family: Helvetica;font-size:12px;page-break-after:always;" id="printorders">
+@foreach (var item in ViewBag.printorder)
+{
+    <div style="text-align:center;">
+        <img src="@item.Logo" alt="logo" />
+    </div>
+}
+    <div>
+        <div style="float: right; text-align: right; padding-right:20px;">
+            <p>Ngày đặt hàng: @Model.CreatedAt</p>
+
+        </div>
+
+        <div style="margin: 10px 0 1.5em 0;">
+            @foreach (var item in ViewBag.printorder)
+            {
+            <p><strong style="font-size: 18px;">@item.NameCompany</strong></p>
+            
+            <p><strong>Địa chỉ:</strong> @item.Address_NameCompany</p>
+
+            <p><strong>Điện thoại:</strong> @item.Hotline</p>
+
+            <p><strong>Website:</strong>http://@Request.ServerVariables["SERVER_NAME"]</p>
+            <p><strong>Email:</strong> @item.Email_config</p>
+            }
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div>
+        <div style="width:60%;float:left;">
+            <h3 style="font-size: 14px;line-height: 0">Chi tiết đơn hàng</h3>
+            <hr style="border: none; border-top: 2px solid #0975BD;" />
+            <table style="margin: 0 0 1.5em 0;font-size: 12px;width:100%;">
+                <thead>
+                    <tr>
+                        <th style="width:10%;text-align: center;padding: 5px 0px">STT</th>
+                        <th style="width:30%;text-align: left;padding: 5px 0px">Tên Sản phẩm</th>
+                        <th style="width:15%;text-align: right;padding: 5px 0px">Số lượng</th>
+                        <th style="width:20%;text-align: right;padding: 5px 0px">Giá</th>
+                        <th style="width:25%;text-align: right;padding: 5px 0px">Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+      @{ int stt = 1;}
+                            @foreach (var items in ViewBag.order_item)
+                            {
+                            <tr valign="top" style="border-top: 1px solid #d9d9d9;">
+                                <td align="center" style="padding: 5px 0px">@stt</td>
+                                <td align="left" style="padding: 5px 5px 5px 0px;white-space: normal;">
+                                    <p style="margin-bottom: 5px;">@items.ProductName</p>
+                                </td>
+                                <td align="center" style="padding: 5px 0px">@items.Quanlity</td>
+                                <td align="right" style="padding: 5px 0px">@string.Format("{0:0,0 đ}", items.Price)</td>
+                                <td align="right" style="padding: 5px 0px">@string.Format("{0:0,0 đ}", items.Price * items.Quanlity)</td>
+                            </tr>
+                                stt++;
+                            }
+                </tbody>
+            </table>
+            <h3 style="font-size: 14px;margin: 0 0 1em 0;">Thông tin thanh toán</h3>
+            <table style="font-size: 12px;width: 100%; margin: 0 0 1.5em 0;">
+                <tr>
+                    <td style="padding: 5px 0px">Tổng giá sản phẩm:</td>
+                    <td style="text-align:right">@string.Format("{0:0,0 đ}", Model.TotalMoney )</td>
+                </tr>
+
+                <tr>
+                    <td style="padding: 5px 0px"><strong>Tổng tiền:</strong></td>
+                    <td style="text-align:right;padding: 5px 0px"><strong>@string.Format("{0:0,0 đ}", Model.TotalMoney)</strong></td>
+                </tr>
+            </table>
+        </div>
+        <div style="width:40%;padding: 0px 0 0 20px;float:left;">
+            <h3 style="font-size: 14px;line-height: 0">Thông tin đơn hàng</h3>
+            <hr style="border: none; border-top: 2px solid #0975BD;" />
+            <div style="margin: 0 0 1em 0; padding: 1em; border: 1px solid #d9d9d9;">
+                <p><strong>Mã đơn hàng:</strong></p>
+                <p>#@Model.orderID</p>
+                <p><strong>Ngày đặt hàng:</strong></p>
+                <p>@Model.CreatedAt</p>
+                <p><strong>Phương thức thanh toán</strong></p>
+                <p>@Model.Payment.PaymentName</p>
+            </div>
+
+            <h3 style="font-size: 14px;line-height: 0">Thông tin mua hàng</h3>
+            <hr style="border: none; border-top: 2px solid #0975BD;" />
+            <div style="margin: 0 0 1em 0; padding: 1em; border: 1px solid #d9d9d9;  white-space: normal;">
+                @*<p>Địa chỉ: <strong>@ViewBag.Cus.Address</strong></p>
+
+                <p>Điện thoại: @ViewBag.Cus.Phone</p>
+
+                <p>Email: @ViewBag.Cus.Email</p>*@
+            </div>
+  
+        </div>
+        <div style="clear:both"></div>
+    </div>
+@foreach (var item in ViewBag.printorder)
+{
+    <p>Nếu bạn có thắc mắc, vui lòng liên hệ chúng tôi qua email <u>@item.Email_config </u> hoặc @item.Hotline .</p>
+}
+</div>
+
+
+
+
+
+
+    <script>
+            $('#button_prints').click(function () {
+    var printContents = document.getElementById("printorders").innerHTML;
+    var originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+
+    window.print();
+
+    document.body.innerHTML = originalContents;
+});
+    </script>

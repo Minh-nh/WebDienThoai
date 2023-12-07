@@ -1,0 +1,253 @@
+.bg_w {
+	background: #fff;
+}
+ul{
+	padding: 0;
+	margin: 0;
+}
+.content-wrap {
+	padding: 20px 0px;
+}
+.fancy-title h3 {
+	font-size: 24px;
+}
+div.account-table {
+	margin-bottom: 0px;
+}
+.table>thead>tr>th {
+	vertical-align: bottom;
+	border-bottom: 2px solid #ddd;
+	padding: 8px;
+}
+.table >tbody tr>td{
+	padding: 8px;
+	vertical-align: middle;
+}
+.fancy-title {
+	position: relative;
+	margin-bottom: 10px;
+}
+#content p {
+	line-height: 1.8;
+}
+div.account-table p {
+	margin-bottom: 10px;
+}
+a.logout {
+	position: absolute;
+	right: 0;
+	top: 2px;
+	text-decoration: underline;
+	color: #000;
+	font-size: 13px;
+}
+.accountAddress a.logout.clickOut {
+	right: 130px;
+}
+.accountSidebar {
+	float: left;
+	width: 20%;
+}
+.feature_user {
+	padding: 10px;
+	background: #d21212;
+	color: #fff;
+	margin-bottom: 10px;
+}
+.accountNeworder tr td:first-child a{
+	color: #d21212;
+}
+.feature_user span {
+	font-size: 13px;
+	line-height: 1.5;
+	display: block;
+}
+.feature_user h3 {
+	font-size: 15px;
+	line-height: normal;
+	color: #fff;
+}
+.link_account {
+	padding: 10px;
+}
+.link_account ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.link_account li {
+	padding: 5px 5px 5px 15px;
+}
+.link_account li.active {
+	background: #f1f1f1;
+	font-weight: bold;
+}
+.link_account li a {
+	color: #000;
+}
+.ctAccount {
+	float: left;
+	width: 80%;
+	padding: 0px 10px;
+}
+.detailAccount{
+	padding: 10px;
+}
+.feature_user .icon {
+	width: 45px;
+	margin-right: 5px;
+	display: inline-block;
+	vertical-align: middle;
+}
+.feature_user .user {
+	display: inline-block;
+	vertical-align: middle;
+}
+.accountInfo > h3 {
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	text-transform: uppercase;
+}
+.user_info {
+	width: 50%;
+}
+.user_info h3, .accountNeworder h3, .accountAddress > h3 {
+	font-size: 16px;
+	margin-bottom: 10px;
+	color: #333;
+}
+.user_info h3, .accountNeworder h3, .accountAddress > h3, #addNewaddress > h3 {
+	font-size: 16px;
+	margin-bottom: 10px;
+	color: #333;
+}
+.user_info .main {
+	padding: 10px;
+	border: 1px solid #eaeaea;
+	font-size: 13px;
+	margin-bottom: 20px;
+}
+.user_info .main li {
+	display: block;
+	line-height: 20px;
+}
+.user_info .main li span.first {
+	width: 30%;
+	display: inline-block;
+}
+.account-table > p {
+	line-height: normal;
+	padding: 0px 15px;
+	font-style: italic;
+}
+.view_address p {
+	line-height: 1.4 !important;
+	font-size: 13px;
+}
+.accountAddress > h3{
+	//margin-bottom: 20px;
+	position: relative;
+}
+.view_address {
+	padding: 10px;
+	border: 1px dashed #ccc;
+	position: relative;
+}
+.address_defaul .view_address {
+	border: 1px dashed #d21212;
+}
+.view_address p.name {
+	font-size: 15px;
+	font-weight: bold;
+}
+.address_actions > span {
+	display: inline-block;
+	margin-right: 10px;
+	font-size: 13px;
+	margin-top: 5px;
+}
+.address_actions > span a {
+	color: #333;
+	padding: 5px 15px;
+	border: 1px solid #ccc;
+	display: block;
+}
+span.label_defaul {
+	font-size: 11px;
+	position: absolute;
+	right: 10px;
+	color: #d21212;
+}
+.address_table .input-group {
+	margin-bottom: 5px;
+}
+.action_bottom .btn {
+	padding: 0;
+	font-size: 13px;
+	width: 100px;
+	height: 35px;
+	border-radius: 0;
+	border: 1px solid #d21212;
+color: #fff !important;
+background: #d21212;
+text-transform: uppercase;
+outline: none;
+}
+.action_bottom .btn:hover{
+	color: #d21212 !important;
+	background: transparent;
+}
+.address_table .input-group, .edit_address .input-group {
+	margin-bottom: 5px;
+}
+.address > div {
+	margin-bottom: 20px;
+}
+.detailAccount .header-page h1 {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+.detailAccount .content-page {
+	margin: 15px 0px;
+}
+@media screen and (min-width: 992px) and (max-width: 1199px){
+	.feature_user .icon {
+		width: 30px;
+	}
+	.feature_user span {
+		font-size: 10px;
+	}
+	.feature_user h3 {
+		font-size: 13px;
+	}
+}
+@media screen and (max-width: 991px){
+	.accountSidebar, .ctAccount, .user_info {
+		width: 100% !important;
+	}
+	.accountSidebar{
+		margin-bottom: 20px;
+	}
+	.detailAccount div#layout-page > div {
+		padding: 0;
+	}
+}
+@media screen and (max-width: 767px) {
+	.ctAccount {
+		padding: 0;
+	}
+	.accountAddress {
+		margin-top: 20px;
+	}
+}
+@media screen and (max-width: 370px) {
+	.accountInfo > h3 {
+		font-size: 14px;
+		padding-right: 65px;
+	}
+	.accountInfo .logout {
+		top: -2px;
+	}
+}

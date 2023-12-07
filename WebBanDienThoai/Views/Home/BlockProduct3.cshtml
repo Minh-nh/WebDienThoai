@@ -1,0 +1,126 @@
+﻿@foreach (var block3 in ViewBag.getTitleBlock1)
+{
+
+    if (block3.Collection3_Status == true)
+    {
+
+<section id="homeProductBlock-3" class="blockSection blockPD">
+    <div class="container">
+        <div class="wapperPDHome">
+            <div class="blockTitle">
+                <a href="@block3.button_more3">
+                    <h2>
+                        @block3.title_category3
+                    </h2>
+                </a>
+                @*<a href="@block3.button_more3" class="viewAll topAll hidden-xs translateY-50 transition-3">Xem thêm <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>*@
+
+            </div>
+            <div class="blockContent">
+                <div class="row">
+                    <div class="col-md-9 col-sm-12 col-xs-12 blockColumn left ">
+                        <div class="wrap">
+                            <div class="bannerBlock imageHover">
+                                <a href="#"><img src="@block3.Banner_Collection3" alt="@block3.title_category3" /></a>
+                            </div>
+                            <div class="productsBlock">
+                                <div class="slidePDHome owlBlock owlDesign notDots">
+                                    
+
+                                    @foreach (var item in ViewBag.collection_home_3)
+                                    {
+
+                                        <div class="productItem">
+                                            <div class="pdLoopItem animated zoomIn">
+                                                <div class="itemLoop clearfix">
+                                                    <div class="pdLoopImg imageHovers">
+                                                        @if (item.PriceSale > item.Price)
+                                                        {
+                                                            decimal sale_ciels = item.PriceSale - item.Price;
+                                                            decimal pt_sales = (item.Price * 100) / item.PriceSale;
+                                                            pt_sales = 100 - pt_sales;
+
+                                                            <div class="pdLabel sale">
+                                                                <span>Giảm @Math.Ceiling(pt_sales)%</span>
+                                                            </div>
+                                                        }
+                                                        <a href="/products/@item.CategoryID/@item.ProductID/@item.Alias" title="@item.ProductName">
+                                                            <img src="@item.Images" data-reg="false" class="imgLoopitem" alt="@item.ProductName">
+                                                        </a>
+                                                        <div class="pdLoopAction">
+                                                            <div class="listAction">
+                                                                <a href="javascript:void(0)" class="btnLoop btn-quickview-1" data-id="@item.ProductID" data-toggle="tooltip" data-placement="left" title="Xem nhanh"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
+                                                                <a href="/products/@item.CategoryID/@item.ProductID/@item.Alias" class="btnLoop view_product" data-toggle="tooltip" data-placement="left" title="Xem chi tiết"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                                                                <a href="javascript:void(0)" class="add-cart btnLoop Addcart" data-variantid="@item.ProductID" title="Thêm vào giỏ"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pdLoopDetail text-center clearfix">
+                                                        <h3 class="pdLoopName"><a class="productName" href="/products/@item.CategoryID/@item.ProductID/@item.Alias" title="@item.ProductName">@item.ProductName</a></h3>
+                                                        <p class="pdPrice">
+                                                            <span> @String.Format("{0:0,0₫}", item.Price)</span>
+                                                            @if (item.PriceSale > item.Price)
+                                                            {
+                                                                <del class="pdComparePrice">@String.Format("{0:0,0₫}", item.PriceSale)</del>
+                                                            }
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    }
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 hidden-sm hidden-xs blockColumn right">
+                        <div class="wrap">
+                            <div class="panel panel-default pdMoreBlock">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">@block3.title_right3</h3>
+                                </div>
+                                <div class="panel-body">
+                                    @foreach (var item in ViewBag.collection_home_3_right)
+                                    {
+                                        <div class="pdMoreItem ">
+                                            <div class="wrap clearfix">
+                                                <div class="image">
+                                                    <a href="/products/@item.CategoryID/@item.ProductID/@item.Alias" title="@item.ProductName">
+                                                        <img src="@item.Images" data-reg="false" class="imgLoopItem" alt="@item.ProductName">
+                                                    </a>
+                                                </div>
+                                                <div class="detail">
+                                                    <h3 class="name"><a class="productName" href="/products/@item.CategoryID/@item.ProductID/@item.Alias" title="@item.ProductName">@item.ProductName</a></h3>
+                                                    <p class="pdPrice">
+                                                        <span>@String.Format("{0:0,0₫}", item.Price)</span>
+                                                        @if (item.PriceSale > item.Price)
+                                                        {
+                                                            <del class="pdComparePrice">@String.Format("{0:0,0₫}", item.PriceSale)</del>
+                                                        }
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+
+                                    <div class="moreAll text-center">
+                                        @*<a href="@block3.button_more_right3" class="viewAll ">Xem thêm <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    }
+}

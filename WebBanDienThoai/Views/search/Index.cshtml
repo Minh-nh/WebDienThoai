@@ -1,0 +1,133 @@
+﻿@model PagedList.IPagedList<WebBanDienThoai.Models.Product>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Kết quả tìm kiếm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="insSearchPage">
+    <div class="insBreadcrumb ">
+        <div class="container">
+            <div class="breadcrumb-wrap">
+                <ol class="breadcrumb breadcrumb-arrow hidden-sm hidden-xs">
+
+                    <li><a href="/" target="_self">Trang chủ</a></li>
+
+
+
+                    <li class="active">
+                        <span>
+
+                            Tìm kiếm: "@ViewBag.keyword_search"
+
+                        </span>
+
+                    </li>
+
+
+
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+
+        <div class="searchResults">
+
+
+            @if (Model.Count > 0)
+            {
+                <div class="searchHead">
+                    <p>
+                        Tìm thấy <span>@ViewBag.countresult kết quả với từ khóa <i>"@ViewBag.keyword_search"</i>...</span>
+                    </p>
+                </div>
+                <ul class="product-list filter products row">
+
+
+                    @foreach (var item in Model)
+                    {
+                        <li class="item_product col-md-3 col-sm-3 col-xs-6">
+                            <div class="pdLoopItem animated zoomIn">
+                                <div class="itemLoop clearfix">
+                                    <div class="pdLoopImg imageHovers">
+                                        @if (item.PriceSale > item.Price)
+                                        {
+                                            decimal sale_ciels = item.PriceSale - item.Price ?? 0;
+                                            decimal pt_sales = (item.Price * 100) / item.PriceSale ?? 0;
+                                            pt_sales = 100 - pt_sales;
+
+                                            <div class="pdLabel sale">
+                                                <span>Giảm @Math.Ceiling(pt_sales)%</span>
+                                            </div>
+                                        }
+                                        <a href="/products/@item.CategoryID/@item.ProductID/@item.Alias" title="@item.ProductName">
+                                            <img src="@item.Images" data-reg="false" class="imgLoopitem" alt="@item.ProductName">
+                                        </a>
+                                        <div class="pdLoopAction">
+                                            <div class="listAction">
+                                                <a href="javascript:void(0)" class="btnLoop btn-quickview-1" data-id="@item.ProductID" data-toggle="tooltip" data-placement="left" title="Xem nhanh"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
+                                                <a href="/products/@item.CategoryID/@item.ProductID/@item.Alias" class="btnLoop view_product" data-toggle="tooltip" data-placement="left" title="Xem chi tiết"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                                                <a href="javascript::0" class="add-cart btnLoop Addcart" data-variantid="@item.ProductID" title="Thêm vào giỏ"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pdLoopDetail text-center clearfix">
+                                        <h3 class="pdLoopName"><a class="productName" href="/products/@item.CategoryID/@item.ProductID/@item.Alias" title="@item.ProductName">@item.ProductName</a></h3>
+                                        <p class="pdPrice">
+                                            <span> @String.Format("{0:0,0₫}", item.Price)</span>
+                                            @if (item.PriceSale > item.Price)
+                                            {
+                                                <del class="pdComparePrice">@String.Format("{0:0,0₫}", item.PriceSale)</del>
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>
+                    }
+
+
+
+                </ul>
+
+                <div class="clearfix"></div>
+                <div class="col-md-12 content_sortPagiBar pagi">
+                    <div id="pagination">
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, @q = ViewBag.keyword_search }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <div class="searchHead text-center">
+                    <p>
+                        <span>Không tìm thấy kết quả nào với từ khóa <i>"@ViewBag.keyword_search"</i></span>
+                    </p>
+                </div>
+            }
+
+
+
+
+
+
+        </div>
+
+    </div>
+</section>
+
+<style>
+    .product-list {
+        padding: 0;
+    }
+
+    .searchHead p {
+        margin: 10px 0px;
+        padding: 10px;
+        background: #fff;
+        font-size: 16px;
+    }
+</style>

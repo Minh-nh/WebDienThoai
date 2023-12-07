@@ -1,0 +1,41 @@
+﻿@model List<WebBanDienThoai.Models.MenuNavigation>
+@{
+    foreach (var item in Model)
+    {
+        ViewBag.Title = item.MenuName;
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="insBreadcrumb ">
+    <div class="container">
+        <div class="breadcrumb-wrap">
+            <ol class="breadcrumb breadcrumb-arrow hidden-sm hidden-xs">
+                <li><a href="/" target="_self">Trang chủ</a></li>
+                @foreach (var item in Model)
+                {
+                    <li class="active"><span>@item.MenuName</span></li>
+                }
+
+            </ol>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="pages" style="background:#fff;padding:15px 10px;margin: 20px 0px;">
+        @foreach (var item in Model)
+        {
+            <div class="text-title">
+                <h1 style="color:#555555;margin-bottom:10px;">@item.MenuName</h1>
+            </div>
+            <div class="description">
+                @Html.Raw(item.PageContent)
+            </div>
+        }
+    </div>
+
+</div>
+

@@ -1,0 +1,175 @@
+﻿<div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title " id="">Thông tin sản phẩm</h4>
+                <button type="button" class="closeModal" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <form method="post" action="cart/add">
+                            <div class="col-lg-5 col-md-6">
+                                <div class="image-zoom row">
+
+                                    <img class="p-product-image-feature" src="">
+
+                                    <div id="p-sliderproduct" class="owl_pages ">
+                                        <ul class="slides"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 col-md-6 pull-right" style="padding: 0px 10px;">
+                                <div class="form-input">
+                                    <div class="product-title p-title">
+                                        <h1></h1>
+                                    </div>
+                                    <div class="product-price">
+                                        <span class="p-price "></span>
+                                        <del></del>
+                                    </div>
+                                </div>
+                                <div class="form-des"></div>
+                                <div class="clearfix"></div>
+                                <div class="form-input vid ">
+                                    <div class="m-vendor">
+                                        <span>Nhà cung cấp: </span>
+                                        <span style="font-weight:normal;font-size:14px;" class="nhomsp_id"></span>
+                                    </div>
+                                </div>
+                                <div class="form-input ">
+                                    <label>Số lượng</label>
+                                    <input name="quantity" type="number" min="1" value="1" />
+                                </div>
+                                <div class="form-input" style="width: 100%">
+                                    <button type="button" class="btn-addcart btn-add-cart-quickview" data-variantid="">Thêm vào giỏ</button>
+                                    <div class="qv-readmore">
+                                        <span> hoặc </span><a class="read-more p-url" href="" role="button">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<script>
+
+    $(document).ready(function () {
+        $('.btn-quickview-1').click(function () {
+            var id = $(this).attr("data-id");
+
+            $.ajax({
+                url: "/Home/GetQuickView",
+                type: "GET",
+                data: { id: id },
+                dataType: "json",
+                success: function (data) {
+                    $('#p-sliderproduct .slides').html("");
+                    $('#quick-view-modal').modal();
+                    for (var i = 0; i < data.Product.length; i++) {
+                        $(".p-title h1").html(data.Product[i].ProductName);
+                        $(".product-price .p-price").html(data.Product[i].Price);
+                        $(".product-price .p-price").simpleMoneyFormat();
+                        $(".form-des").html(data.Product[i].DescriptShort);
+                        $(".nhomsp_id").html(data.Product[i].CategoryName);
+                        $('.btn-add-cart-quickview').attr("data-variantid", data.Product[i].ProductID);
+                        $(".qv-readmore .read-more").attr("href", "/products/" + data.Product[i].CategoryID + "/" + data.Product[i].ProductID + "/" + data.Product[i].Alias + "");
+                        if (data.Product[i].PriceSale > data.Product[i].Price) {
+                            $(".product-price del").html(data.Product[i].PriceSale);
+                            $(".product-price del").simpleMoneyFormat();
+                        } else {
+                            $(".product-price del").hide();
+                        }
+
+                        $('#p-sliderproduct').remove();
+                        $('.image-zoom').append("<div id='p-sliderproduct' class='owl_pages '>");
+                        $('#p-sliderproduct').append("<ul class='slides owlDesign '>");
+                        $('#p-sliderproduct .slides').hide();
+
+
+                            var t = 1;
+                            for (var j = 0; j < data.Image.length; j++) {
+                                if (t == 1) {
+                                    $('#quick-view-modal').find('.p-product-image-feature').attr('src', '/Upload/Images/' + data.Image[j].FileImages + '');
+                                }
+                                t++;
+                            }
+
+                            for (var k = 0; k < data.Image.length-1; k++) {
+
+                                $('#p-sliderproduct .slides').prepend('<li class="product-thumb"><a href="javascript::0" data-image="/Upload/Images/' + data.Image[k].FileImages + '" data-zoom-image="/Upload/Images/' + data.Image[k].FileImages + '"><img data-image="/Upload/Images/' + data.Image[k].FileImages + '" data-zoom-image="/Upload/Images/' + data.Image[k].FileImages + '" src="/Upload/Images/' + data.Image[k].FileImages + '"></a></li>');
+                            }
+
+
+                            setTimeout(function () {
+                                var owl = $('#p-sliderproduct .slides');
+                                owl.on('initialize.owl.carousel initialized.owl.carousel ' +
+                                             'initialize.owl.carousel initialize.owl.carousel ' +
+                                             'resize.owl.carousel resized.owl.carousel ' +
+                                             'refresh.owl.carousel refreshed.owl.carousel ' +
+                                             'update.owl.carousel updated.owl.carousel ' +
+                                             'drag.owl.carousel dragged.owl.carousel ' +
+                                             'translate.owl.carousel translated.owl.carousel ' +
+                                             'to.owl.carousel changed.owl.carousel', function (e) {
+                                                 $('#p-sliderproduct .slides').show();
+                                             })
+                                owl.owlCarousel({
+                                    items: 4,
+                                    loop: false,
+                                    autoplay: false,
+                                    margin: 5,
+                                    responsiveClass: true,
+                                    nav: true,
+                                    navText: ['‹', '›'],
+                                    responsive: {
+                                        0: {
+                                            items: 1
+                                        },
+                                        370: {
+                                            items: 2
+                                        },
+                                        480: {
+                                            items: 3
+                                        },
+                                        768: {
+                                            items: 4
+                                        },
+                                        992: {
+                                            items: 4
+                                        }
+                                    }
+                                });
+                                $("#quick-view-modal").find('.owl-item:first-child .product-thumb').addClass('active');
+                            }, 500)
+
+
+
+                    }
+                }, error: function (err) {
+                    alert("Error");
+                }
+
+            });
+        });
+
+
+        $('#quick-view-modal ').on('click', '.product-thumb img', function (event) {
+            event.preventDefault();
+            modal = $('#quick-view-modal');
+            modal.find('.p-product-image-feature').attr('src', $(this).attr('data-zoom-image'));
+            modal.find('.product-thumb').removeClass('active');
+            $(this).parents('li').addClass('active');
+            return false;
+        })
+
+
+    });
+</script>

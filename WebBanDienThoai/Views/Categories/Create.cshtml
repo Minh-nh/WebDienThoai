@@ -1,0 +1,214 @@
+﻿
+
+@model WebBanDienThoai.Models.Category
+
+@{
+    ViewBag.Title = "Tạo Mới nhóm sản phẩm";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="curd" style="margin-right:70px;width:100%;">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <div class="breadcrumb">
+                <div class="breadcrumb-left">
+                    <i class="menu-icon fa fa-user" aria-hidden="true"></i>
+                    <a href="~/Admin/Users" class="title_bread"> Danh sách nhóm sản phẩm</a>
+                    <span style="color:#ccc;margin:0px 15px;font-size:20px;"> /</span>
+                    <span class="title_bread"> Thêm Mới</span>
+                </div>
+                <div class="breadcrumb-add">
+                    @Html.ActionLink("Hủy", "Index", "", new { @class = "btn btn-default" })
+                    <input type="submit" value="Lưu Lại" class="btn btn-primary" />
+                </div>
+            </div><!-- /.breadcrumb -->
+
+
+        </div>
+
+        <div class="createandedit">
+
+            <div class="row">
+
+                @Html.AntiForgeryToken()
+
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <p style="color:red;font-weight:bold;text-align:center;">@ViewBag.check_cate</p>
+                <p style="color:red;font-weight:bold;text-align:center;">@ViewBag.check_alias</p>
+                <div class="col-xs-12 col-md-8">
+
+                    <div class="editcreate">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Alias, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.Alias, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+                        @*<div class="form-group">
+                            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.TextAreaFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" }, id = "txtContent" })
+                            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+
+                        </div>*@
+
+
+
+
+
+
+                    </div>
+
+
+
+
+
+   
+
+
+
+                </div>
+
+                <div class="col-xs-12 col-md-4">
+                    <div class="visible-status">
+                        <p class="title_st">Hiển thị</p>
+                        <div class="check-st">
+                            <div class="show-st">
+                                <input type="radio" name="status_mi" value="true" checked /> <span class="hideshow">Hiện</span>
+                            </div>
+                            <div class="show-st">
+                                <input type="radio" name="status_mi" value="false" /> <span class="hideshow">Ẩn</span>
+                            </div>
+                        </div>
+
+                        <div class="time-stamp">
+                            <p class="title_sts"> Thời Gian:</p>
+                            <input type="text" value="@DateTime.Now" disabled />
+                        </div>
+                    </div>
+
+
+
+                    <div class="image-avatar">
+                        <p class="title_anh">Ảnh đại diện</p>
+
+                        <div class="frame-image">
+                            <div class="noset-image">
+                                <input type="file" name="image_avatar" class="hidden" id="uploadFile" onchange="readURL(this);" />
+                                <div class="select-image" onclick="performClick('uploadFile');"><i class="fa fa-picture-o" aria-hidden="true"></i><br />Chọn hình</div>
+                            </div>
+
+
+                            <div id="showImage">
+                                <img id="image_showed" width=auto />
+                            </div>
+
+                        </div>
+
+                        <a href="javascript::0" class="change_image" onclick="performClick('uploadFile');">Thay hình ảnh</a>
+
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+
+            <div class="text-left" style="margin-top:20px;">
+                <i class="fa fa-angle-double-left" aria-hidden="true" style="color:red !important;"></i>  @Html.ActionLink("Trở lại trang trước", "Index", "", new { style = "color:red;font-size:12px;" })
+            </div>
+
+
+        </div>
+    }
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+function performClick(elemId) {
+   var elem = document.getElementById(elemId);
+   if(elem && document.createEvent) {
+      var evt = document.createEvent("MouseEvents");
+      evt.initEvent("click", true, false);
+      elem.dispatchEvent(evt);
+   }
+}
+</script>
+
+
+
+
+<script>
+    var loadFile = function (event) {
+        var files = event.target.files;
+        for (var i = 0; i < files.length; i++) {
+            $("#showImage").append("<img src='"+ URL.createObjectURL(event.target.files[i]) +"' class='imaged' />");
+        }
+    }
+</script>
+
+
+
+<script type="text/javascript">
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    $('.noset-image').hide();
+                    $('.change_image').css("display","block");
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#image_showed')
+                            .attr('src', e.target.result);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+</script>
+
+
+
+<script>
+
+
+
+    $("#CategoryName").keyup(function () {
+        var Text = $(this).val();
+        Text = Text.toLowerCase();
+        $("#Alias").val(convertToSlug(Text));
+    });
+
+
+    $("#CategoryName ").mouseout(function () {
+            var Text = $(this).val();
+            Text = Text.toLowerCase();
+            $("#Alias").val(convertToSlug(Text));
+        });
+</script>

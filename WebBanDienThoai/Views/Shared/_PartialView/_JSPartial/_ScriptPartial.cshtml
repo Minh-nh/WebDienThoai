@@ -1,0 +1,75 @@
+﻿
+
+<script>
+    function convertToSlug(str) {
+
+        str = str.toLowerCase();
+        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+        str = str.replace(/!|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'| |\"|\&|\#|\[|\]|~|$|_/g, "-");
+        str = str.replace(/-+-/g, "-");
+        str = str.replace(/^\-+|\-+$/g, "");
+        return str;
+    }
+</script>
+
+    <script type="text/javascript">
+        if ('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+    </script>
+    <script src="~/Content/Admin/assets/js/bootstrap.min.js"></script>
+
+    <!-- page specific plugin scripts -->
+    <!--[if lte IE 8]>
+      <script src="assets/js/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="~/Content/Admin/assets/js/jquery.confirm.js"></script>
+    <script src="~/Content/Admin/assets/js/jquery-ui.min.js"></script>
+    <script src="~/Content/Admin/assets/js/jquery-ui.custom.min.js"></script>
+    <script src="~/Content/Admin/assets/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="~/Content/Admin/assets/js/jquery.easypiechart.min.js"></script>
+    <script src="~/Content/Admin/assets/js/jquery.sparkline.index.min.js"></script>
+    <script src="~/Content/Admin/assets/js/jquery.flot.min.js"></script>
+    <script src="~/Content/Admin/assets/js/jquery.flot.pie.min.js"></script>
+    <script src="~/Content/Admin/assets/js/jquery.flot.resize.min.js"></script>
+
+    <script src="~/Content/Admin/assets/plugins/ckfinder/ckfinder.js"></script>
+    <script src="~/Content/Admin/assets/plugins/ckeditor/ckeditor.js"></script>
+
+
+    <!-- ace scripts -->
+    <script src="~/Content/Admin/assets/js/ace-elements.min.js"></script>
+    <script src="~/Content/Admin/assets/js/ace.min.js"></script>
+    <script src="~/Content/Admin/assets/js/simple.money.format.js"></script>
+
+    <!-- inline scripts related to this page -->
+
+    <script>
+        var editor = CKEDITOR.replace('txtContent', {
+            customConfig: "/Content/Admin/assets/plugins/ckeditor/config.js",
+        });
+    </script>
+
+
+    <script>
+        $('.btn_confirm').confirm();
+    </script>
+
+
+
+
+    <script>
+
+        $(document).ready(function () {
+            $('.txt_left2').click(function () {
+                $('.input_telier').toggle();
+            });
+        });
+    </script>
+
+
+

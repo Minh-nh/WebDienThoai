@@ -1,0 +1,196 @@
+﻿
+
+@model WebBanDienThoai.Models.Category
+
+@{
+    Uri MyUrl = Request.Url;
+    ViewBag.Title = "Chỉnh sửa thông tin nhóm sản phẩm";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="curd" style="margin-right:70px;width:100%;">
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <div class="breadcrumb">
+                <div class="breadcrumb-left">
+                    <i class="menu-icon fa fa-user" aria-hidden="true"></i>
+                    <a href="~/Admin/Categories" class="title_bread"> Danh Sách Nhóm Sản Phẩm </a>
+                    <span style="color:#ccc;margin:0px 15px;font-size:20px;"> /</span>
+                    <span class="title_bread"> Chỉnh sửa</span>
+                </div>
+                <div class="breadcrumb-add">
+                    @Html.ActionLink("Hủy", "Index", "", new { @class = "btn btn-default" })
+                    <input type="submit" value="Lưu Lại" class="btn btn-primary" />
+                </div>
+            </div><!-- /.breadcrumb -->
+
+
+        </div>
+
+
+        <div class="createandedit">
+
+            <div class="row">
+                @Html.AntiForgeryToken()
+
+
+
+                <div class="col-xs-12 col-md-8">
+                    <div class="editcreate">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @Html.HiddenFor(model => model.CategoryID)
+                        @Html.HiddenFor(model => model.Images)
+                        @Html.HiddenFor(model => model.Author)
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Alias, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.Alias, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+
+
+
+
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="col-xs-12 col-md-4">
+                    <div class="visible-status">
+                        <p class="title_st">Hiển thị</p>
+                        <div class="check-st">
+                            <div class="show-st">
+                                @Html.RadioButtonFor(model => model.Status, "true") <span class="hideshow">Hiện</span>
+                            </div>
+                            <div class="show-st">
+                                @Html.RadioButtonFor(model => model.Status, "false") <span class="hideshow">Ẩn</span>
+                            </div>
+                        </div>
+
+                        <div class="time-stamp">
+                            <p class="title_sts"> Thời Gian:</p>
+                            @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="image-avatar">
+                        <p class="title_anh">Ảnh đại diện</p>
+
+                        <div class="frame-image">
+
+
+                            <input type="file" name="image_avatars" class="hidden" id="uploadFile" onchange="readURL(this);" />
+
+
+
+                            <div id="showImage">
+                                <img src="@Model.Images" id="image_showed" width="100%" />
+                            </div>
+
+                        </div>
+                        <p style="color:red;font-weight:bold;text-align: center;padding-top: 10px;">@ViewBag.filename_error</p>
+
+                        <a href="javascript::0" style="display:block;" class="change_image" onclick="performClick('uploadFile');">Thay hình ảnh</a>
+
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+
+
+            <div class="text-left" style="margin-top:20px;">
+                <i class="fa fa-angle-double-left" aria-hidden="true" style="color:red !important;"></i>  @Html.ActionLink("Trở lại trang trước", "Index", "", new { style = "color:red;font-size:12px;" })
+            </div>
+
+
+        </div>
+    </div>
+
+
+}
+
+
+<script type="text/javascript">
+function performClick(elemId) {
+   var elem = document.getElementById(elemId);
+   if(elem && document.createEvent) {
+      var evt = document.createEvent("MouseEvents");
+      evt.initEvent("click", true, false);
+      elem.dispatchEvent(evt);
+   }
+}
+</script>
+
+
+
+
+<script>
+    var loadFile = function (event) {
+        var files = event.target.files;
+        for (var i = 0; i < files.length; i++) {
+            $("#showImage").append("<img src='"+ URL.createObjectURL(event.target.files[i]) +"' class='imaged' />");
+        }
+    }
+</script>
+
+
+
+<script type="text/javascript">
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    $('.noset-image').hide();
+                    $('.change_image').css("display","block");
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#image_showed')
+                            .attr('src', e.target.result);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+</script>
+
+
+
+<script>
+
+
+
+    $("#CategoryName").focusout(function () {
+        var Text = $(this).val();
+        Text = Text.toLowerCase();
+        $("#Alias").val(convertToSlug(Text));
+    });
+
+
+    $("#CategoryName ").mouseout(function () {
+            var Text = $(this).val();
+            Text = Text.toLowerCase();
+            $("#Alias").val(convertToSlug(Text));
+        });
+</script>

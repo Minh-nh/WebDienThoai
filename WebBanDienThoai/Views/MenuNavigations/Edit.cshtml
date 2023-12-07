@@ -1,0 +1,592 @@
+﻿@model WebBanDienThoai.Models.MenuNavigation
+
+@{
+    ViewBag.Title = "Chỉnh sửa menu " + Model.MenuName;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="curd" style="margin-right:70px;width:100%;">
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <div class="breadcrumb">
+                <div class="breadcrumb-left">
+                    <i class="menu-icon fa fa-user" aria-hidden="true"></i>
+                    <a href="~/Admin/MenuNavigations" class="title_bread"> Danh sách Menu</a>
+                    <span style="color:#ccc;margin:0px 15px;font-size:20px;"> /</span>
+                    <span class="title_bread"> Chỉnh sửa</span>
+                    <span style="color:#ccc;margin:0px 15px;font-size:20px;"> /</span>
+                    <span class="title_bread"> @Model.MenuName</span>
+                </div>
+                <div class="breadcrumb-add">
+                    @Html.ActionLink("Hủy", "Index", "", new { @class = "btn btn-default" })
+                    <input type="submit" value="Lưu Lại" class="btn btn-primary" />
+                </div>
+            </div><!-- /.breadcrumb -->
+
+
+        </div>
+
+
+
+
+        <div class="createandedit">
+
+            <div class="row">
+
+
+                @Html.AntiForgeryToken()
+
+
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.MenuID)
+                @Html.HiddenFor(model => model.IconMenu)
+
+                <div class="col-xs-12 col-md-8">
+
+                    <div class="editcreate">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Sequence, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.Sequence, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Sequence, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MenuName, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.MenuName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MenuName, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IconMenu, htmlAttributes: new { @class = "control-label" })
+                            <input type="file" name="image_icon" id="uploadFile" onchange="readURL(this);" />
+
+                            <div id="showImage">
+                                <img id="image_showed" src="@Model.IconMenu" />
+                            </div>
+
+                        </div>
+
+
+
+
+
+                        <div class="form-group page_content">
+                            @Html.LabelFor(model => model.PageContent, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.TextAreaFor(model => model.PageContent, new { htmlAttributes = new { @class = "form-control" }, id = "txtContent" })
+                            @Html.ValidationMessageFor(model => model.PageContent, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group link_lienket">
+                            @Html.LabelFor(model => model.PageLink, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.PageLink, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PageLink, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+
+
+
+
+                    </div>
+
+         
+
+
+
+                </div>
+
+
+
+
+                <div class="col-xs-12 col-md-4">
+                    <div class="visible-status">
+                        <p class="title_st">Hiển thị</p>
+                        <div class="check-st">
+                            <div class="show-st">
+                                @Html.RadioButtonFor(model => model.Status, "true") <span class="hideshow">Hiện</span>
+                            </div>
+                            <div class="show-st">
+                                @Html.RadioButtonFor(model => model.Status, "false") <span class="hideshow">Ẩn</span>
+                            </div>
+                        </div>
+
+                        <div class="time-stamp">
+                            <p class="title_sts"> Thời Gian:</p>
+                            @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="bot-des-more">
+                        <h3 class="title_pl">Phân loại</h3>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MenuID, "Danh mục Cha", htmlAttributes: new { @class = "control-label" })
+                            <span class="custom-dropdown custom-dropdown-white">
+                                @Html.DropDownList("MenuParents", new SelectList(ViewBag.item, "MenuID", "MenuName"), new { id = "MenuParents", @class = "form-control custom-dropdown-select" })
+                            </span>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PageStyle, htmlAttributes: new { @class = "control-label" })
+
+                            <span class="custom-dropdown custom-dropdown-white">
+                                <select name="PageStyle" id="PageStyle" class="form-control custom-dropdown-select">
+                                    <option value="0">===Chọn Kiểu Menu===</option>
+                                    <option value="1">Nhóm Liên Kết</option>
+                                    <option value="2">Trang Nội Dung</option>
+                                    <option value="3">Liên Kết URL</option>
+                                    <option value="4">Liên Kết Trang Liên Hệ</option>
+                                </select>
+                            </span>
+                        </div>
+
+
+                        <div class="form-group theloai_page">
+
+                            @Html.LabelFor(model => model.FormatPage, htmlAttributes: new { @class = "control-label" })
+                            <span class="custom-dropdown custom-dropdown-white">
+                                <select id="FormatPage" name="FormatPage" class="form-control custom-dropdown-select">
+                                    <option value="0">===Chọn Thể Loại Trang===</option>
+                                    <option value="1">Liên Kết Sản Phẩm</option>
+                                    <option value="2">Liên Kết Bài Viết</option>
+                                </select>
+                            </span>
+                        </div>
+
+
+                        <div class="form-group group_lienket">
+                            @Html.LabelFor(model => model.GroupLink, htmlAttributes: new { @class = "control-label " })
+                            <span class="custom-dropdown custom-dropdown-white">
+                                <select id="GroupLink" name="GroupLink" class="form-control custom-dropdown-select"></select>
+                            </span>
+                        </div>
+
+
+
+
+
+
+                    </div>
+
+                </div>
+
+
+
+
+
+                </div>
+            </div>
+
+                }
+
+            </div>
+
+
+
+
+
+<script type="text/javascript">
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    $('.noset-image').hide();
+                    $('.change_image').css("display","block");
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#image_showed')
+                            .attr('src', e.target.result);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+</script>
+
+
+
+
+@if (Model.GroupLink != null)
+{
+
+<script>
+
+    $(document).ready(function () {
+        $(".page_content").hide();
+        $(".link_lienket").hide();
+        $(".theloai_page").hide();
+        $(".group_lienket").hide();
+        $('#PageStyle').on('change', function () {
+        if (this.value == '1') {
+
+                $(".page_content textarea").val("");
+                $(".link_lienket input").val("");
+
+                $(".theloai_page").show();
+                $(".link_lienket").hide();
+                $(".page_content").hide();
+                $(".group_lienket").hide();
+
+
+
+
+        } else if (this.value == '2') {
+                $('#FormatPage option[value=0]').attr('selected', 'selected');
+                $('#GroupLink option[value=0]').attr('selected', 'selected');
+
+                $(".link_lienket input").val("");
+
+                $(".theloai_page").hide();
+                $(".link_lienket").hide();
+                $(".page_content").show();
+                $(".group_lienket").hide();
+        } else if (this.value == '3') {
+                $('#FormatPage option[value=0]').attr('selected', 'selected');
+                $('#GroupLink option[value=0]').attr('selected', 'selected');
+                $(".page_content textarea").html("");
+
+
+
+                $(".theloai_page").hide();
+                $(".link_lienket").show();
+                $(".page_content").hide();
+                $(".group_lienket").hide();
+        }
+        else {
+                $('#FormatPage option[value=0]').attr('selected', 'selected');
+                $('#GroupLink option[value=0]').attr('selected', 'selected');
+                $(".page_content textarea").val("");
+                $(".link_lienket input").val("");
+
+
+                $(".page_content").hide();
+                $(".link_lienket").hide();
+                $(".theloai_page").hide();
+                $(".group_lienket").hide();
+        }
+    });
+
+
+
+
+        $('#FormatPage').on('change', function () {
+            $(".group_lienket").show();
+        if (this.value == 1) {
+                $('#GroupLink').html('');
+                $.ajax({
+                type: "GET",
+                    url: "@Url.Action("GetDataCategorys")",
+                    success: function (data) {
+
+                        $.each(data, function(i, item)
+                        {  
+                            $('#GroupLink').append("<option value='" + item.IdCate + "'>" + item.NameCate + "</option>");
+                    });
+
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        } else if ((this.value == 2)) {
+            $('#GroupLink').html('');
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetDataBlogs")",
+                success: function (data) {
+                    $.each(data, function(i, item)
+                    {  
+                        $('#GroupLink').append("<option value='" + item.IdBlog + "'>" + item.NameBlog + "</option>");
+                    });
+
+
+                },
+            error: function (responses) {
+                    alert(responses.responseText);
+                }
+            });
+        }
+    });
+});
+
+
+    $(document).ready(function () {
+        window.onload = function () {
+            var kieutrang = $('#PageStyle').val();
+            if (@Model.PageStyle == 1) {
+                $(".theloai_page").show();
+                $(".group_lienket").show();
+                $('#PageStyle option[value=1]').attr('selected', 'selected');
+            } else if (@Model.PageStyle == 2) {
+                $(".page_content").show();
+                $('#PageStyle option[value=2]').attr('selected', 'selected');
+            } else if (@Model.PageStyle == 3) {
+                $(".link_lienket").show();
+                $('#PageStyle option[value=3]').attr('selected', 'selected');
+            }
+
+
+
+
+            //format page
+
+            var format_page=$("#FormatPage").val();
+
+
+            if (@Model.FormatPage == 1) {
+                $('#FormatPage option[value=1]').attr('selected', 'selected');
+
+                $('#GroupLink').html('');
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("GetDataCategorys")",
+                    success: function (data) {
+
+                    $.each(data, function(i, item)  
+                    {  
+                        $('#GroupLink').append("<option value='" + item.IdCate + "'>" + item.NameCate + "</option>");
+                        if(@Model.GroupLink == item.IdCate){
+                            $('#GroupLink option[value="'+item.IdCate+'"]').attr('selected', 'selected');
+                        }
+                    });  
+
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+            }else if(@Model.FormatPage == 2){
+                $('#FormatPage option[value=2]').attr('selected', 'selected');
+
+                $('#GroupLink').html('');
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("GetDataBlogs")",
+                    success: function (data) {
+                    $.each(data, function(i, item)  
+                    {  
+                        $('#GroupLink').append("<option value='" + item.IdBlog + "'>" + item.NameBlog + "</option>");
+
+                        if(@Model.GroupLink == item.IdBlog){
+                            $('#GroupLink option[value="'+item.IdBlog+'"]').attr('selected', 'selected');
+                        }
+
+                    });
+
+  
+                },
+                error: function (responses) {
+                    alert(responses.responseText);
+                }
+                });
+
+            }
+
+
+            $("#MenuParents").prepend('<option value=0>Danh Mục Gốc</option>');
+
+            if(@Model.MenuParents == 0){
+                $('#MenuParents option[value=0]').attr('selected', 'selected');
+            }
+
+
+
+        }
+    })
+</script>
+}
+else
+{
+    <script>
+
+    $(document).ready(function () {
+        $(".page_content").hide();
+        $(".link_lienket").hide();
+        $(".theloai_page").hide();
+        $(".group_lienket").hide();
+        $('#PageStyle').on('change', function () {
+        if (this.value == '1') {
+
+                $(".page_content textarea").val("");
+                $(".link_lienket input").val("");
+
+                $(".theloai_page").show();
+                $(".link_lienket").hide();
+                $(".page_content").hide();
+                $(".group_lienket").hide();
+
+
+
+
+        } else if (this.value == '2') {
+                $('#FormatPage option[value=0]').attr('selected', 'selected');
+                $('#GroupLink option[value=0]').attr('selected', 'selected');
+
+                $(".link_lienket input").val("");
+
+                $(".theloai_page").hide();
+                $(".link_lienket").hide();
+                $(".page_content").show();
+                $(".group_lienket").hide();
+        } else if (this.value == '3') {
+                $('#FormatPage option[value=0]').attr('selected', 'selected');
+                $('#GroupLink option[value=0]').attr('selected', 'selected');
+                $(".page_content textarea").html("");
+
+
+
+                $(".theloai_page").hide();
+                $(".link_lienket").show();
+                $(".page_content").hide();
+                $(".group_lienket").hide();
+        }
+        else {
+                $('#FormatPage option[value=0]').attr('selected', 'selected');
+                $('#GroupLink option[value=0]').attr('selected', 'selected');
+                $(".page_content textarea").val("");
+                $(".link_lienket input").val("");
+
+
+                $(".page_content").hide();
+                $(".link_lienket").hide();
+                $(".theloai_page").hide();
+                $(".group_lienket").hide();
+        }
+    });
+
+
+
+
+        $('#FormatPage').on('change', function () {
+            $(".group_lienket").show();
+        if (this.value == 1) {
+                $('#GroupLink').html('');
+                $.ajax({
+                type: "GET",
+                    url: "@Url.Action("GetDataCategorys")",
+                    success: function (data) {
+
+                        $.each(data, function(i, item)
+                        {
+                            $('#GroupLink').append("<option value='" + item.IdCate + "'>" + item.NameCate + "</option>");
+                    });
+
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        } else if ((this.value == 2)) {
+            $('#GroupLink').html('');
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetDataBlogs")",
+                success: function (data) {
+                    $.each(data, function(i, item)
+                    {
+                        $('#GroupLink').append("<option value='" + item.IdBlog + "'>" + item.NameBlog + "</option>");
+                    });
+
+
+                },
+            error: function (responses) {
+                    alert(responses.responseText);
+                }
+            });
+        }
+    });
+});
+
+
+    $(document).ready(function () {
+        window.onload = function () {
+            var kieutrang = $('#PageStyle').val();
+            if (@Model.PageStyle == 1) {
+                $(".theloai_page").show();
+                $(".group_lienket").show();
+                $('#PageStyle option[value=1]').attr('selected', 'selected');
+            } else if (@Model.PageStyle == 2) {
+                $(".page_content").show();
+                $('#PageStyle option[value=2]').attr('selected', 'selected');
+            } else if (@Model.PageStyle == 3) {
+                $(".link_lienket").show();
+                $('#PageStyle option[value=3]').attr('selected', 'selected');
+            }
+
+
+
+
+            //format page
+
+            var format_page=$("#FormatPage").val();
+
+
+            if (@Model.FormatPage == 1) {
+                $('#FormatPage option[value=1]').attr('selected', 'selected');
+
+                $('#GroupLink').html('');
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("GetDataCategorys")",
+                    success: function (data) {
+
+                    $.each(data, function(i, item)
+                    {
+                        $('#GroupLink').append("<option value='" + item.IdCate + "'>" + item.NameCate + "</option>");
+                    });
+
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+            }else if(@Model.FormatPage == 2){
+                $('#FormatPage option[value=2]').attr('selected', 'selected');
+
+                $('#GroupLink').html('');
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("GetDataBlogs")",
+                    success: function (data) {
+                    $.each(data, function(i, item)
+                    {
+                        $('#GroupLink').append("<option value='" + item.IdBlog + "'>" + item.NameBlog + "</option>");
+                    });
+
+
+                },
+                error: function (responses) {
+                    alert(responses.responseText);
+                }
+                });
+
+            }
+
+
+            $("#MenuParents").prepend('<option value=0>Danh Mục Gốc</option>');
+
+            if(@Model.MenuParents == 0){
+                $('#MenuParents option[value=0]').attr('selected', 'selected');
+            }
+
+
+
+        }
+    })
+    </script>
+
+}

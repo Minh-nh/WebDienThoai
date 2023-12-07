@@ -1,0 +1,178 @@
+﻿<div id="sidebar" class="sidebar responsive ace-save-state">
+    <script type="text/javascript">
+					try{ace.settings.loadState('sidebar')}catch(e){}
+    </script>
+
+    <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+        <div class="nav-search" id="nav-search">
+            <form class="form-search">
+                <span class="input-icon">
+                    <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+                    <i class="ace-icon fa fa-search nav-search-icon"></i>
+                </span>
+            </form>
+        </div><!-- /.nav-search -->
+
+        <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+            <span class="btn btn-success"></span>
+
+            <span class="btn btn-info"></span>
+
+            <span class="btn btn-warning"></span>
+
+            <span class="btn btn-danger"></span>
+        </div>
+    </div><!-- /.sidebar-shortcuts -->
+
+    <ul class="nav nav-list">
+        <li>
+            <a href="~/AdminHome">
+                <i class="menu-icon fa fa-home" aria-hidden="true"></i>
+                <span class="menu-text"> Quản Lí Chung </span>
+            </a>
+
+            <b class="arrow"></b>
+        </li>
+
+        <li class="">
+            <a href="/Orders">
+                <i class="menu-icon fa fa-briefcase" aria-hidden="true"></i>
+                <span class="menu-text">
+                    Đơn hàng
+                        <span class="badge badge-primary">@Session["countnewcart"]</span>
+                </span>
+            </a>
+
+            <b class="arrow"></b>
+                </li>
+            
+
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-tag" aria-hidden="true"></i>
+                <span class="menu-text"> Sản Phẩm </span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+            <b class="arrow"></b>
+
+            <ul class="submenu">
+
+
+                <li class="">
+                    <a href="~/Products/Index">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Tất cả sản phẩm
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+                <li class="">
+                    <a href="~/Categories/Index">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Nhóm sản phẩm
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+
+        <li class="">
+            <a href="~/Customers">
+                <i class="menu-icon fa fa-users" aria-hidden="true"></i>
+                <span class="menu-text"> Khách hàng </span>
+                
+            </a>
+            <b class="arrow"></b>
+        </li>
+
+        <li class="">
+            <a href="javascript:00" class="dropdown-toggle">
+                <i class="menu-icon fa fa-list-alt"></i>
+                <span class="menu-text"> Website </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+            <b class="arrow"></b>
+
+
+            <ul class="submenu">
+
+
+
+                <li class="">
+                    <a href="/Homes/Edit/7">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Quản lí trang chủ
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+
+
+
+
+                <li class="">
+                    <a href="/MenuNavigations">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Quản lí Menu
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+
+
+                <li class="">
+                    <a href="/Slides">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                       Quản lí Slide
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+
+
+
+              </ul>
+</li>
+
+    <li class="">
+        <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa fa-user" aria-hidden="true"></i>
+            <span class="menu-text"> Danh sách quản trị </span>
+
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+
+        <b class="arrow"></b>
+
+        <ul class="submenu">
+            <li class="">
+                <a href="~/Users">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    Quản trị viên
+                </a>
+
+                <b class="arrow"></b>
+            </li>
+           
+
+
+        </ul>
+    </li>
+
+    <li class="">
+        <a href="/Configures/Edit/1">
+            <i class="menu-icon fa fa-cogs" aria-hidden="true"></i>
+            <span class="menu-text"> Cấu hình chung </span>
+
+        </a>
+        <b class="arrow"></b>
+    </li>
+
+    </ul><!-- /.nav-list -->
+
+
+</div>

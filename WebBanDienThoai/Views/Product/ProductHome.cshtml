@@ -1,0 +1,376 @@
+﻿@model List<WebBanDienThoai.Models.ProductModel>
+
+@foreach (var item in Model)
+{
+    ViewBag.Title = item.ProductName;
+    ViewBag.MetaTittes = item.MetaTitle;
+    ViewBag.MetaKeyword = item.MetaKeyword;
+    ViewBag.MetaDescription = item.MetaDescription;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+<section id="insProductPage" class="tamplateSection">
+    <div class="insBreadcrumb ">
+        <div class="container">
+            <div class="breadcrumb-wrap">
+                <ol class="breadcrumb breadcrumb-arrow hidden-sm hidden-xs">
+                    <li><a href="~/home" target="_self">Trang chủ</a></li>
+                    @foreach (var breadcub in ViewBag.getbread)
+                    {
+                        <li><a href="/collections/@breadcub.CategoryID/@breadcub.CategoryName" target="_self">@breadcub.CategoryName</a></li>
+                    }
+                    <li class="active"><span> @item.ProductName</span></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="wrapperPdPage">
+            <div class="pdBlockDetail pdFirstInfo">
+                <div class="row">
+                    <div class="col-lg-6 col-md-5 col-sm-12 col-xs-12 pdImages">
+                        <div class="wrapperPdImage clearfix">
+
+                            <div id="leftThumbsImg" class="pdImgThumbs pull-left">
+                                <ul class="listThumbs">
+                                    @{ int i = 1;}
+                                    @foreach (var image in ViewBag.image_more)
+                                    {
+                                        if (i==1)
+                                        {
+                                        <li class="imgThumb active">
+                                            <a href="javascript:void(0)" data-fancybox="/Upload/Images/@image.FileImages" data-image="/Upload/Images/@image.FileImages">
+                                                <img alt="Huawei Gr5 2017" src="/Upload/Images/@image.FileImages">
+                                            </a>
+                                        </li>
+                                        }else { 
+
+                                        <li class="imgThumb ">
+                                            <a href="javascript:void(0)" data-fancybox="/Upload/Images/@image.FileImages" data-image="/Upload/Images/@image.FileImages">
+                                                <img alt="@item.ProductName" src="/Upload/Images/@image.FileImages">
+                                            </a>
+                                        </li>
+                                        }
+                                        i++;
+                                    }
+
+
+
+                                </ul>
+                            </div>
+                            <div id="imgFeatured" class="featureImg pull-left">
+                                <a class="pdFancybox" href="@item.ProductID/@item.Alias">
+                                    <img alt="@item.ProductName" src="">
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-7 col-sm-12 col-xs-12 pdInfo">
+                        <div class="wrapPdInfo">
+                            <h1 class="title pdTitle">
+                                @item.ProductName
+                            </h1>
+
+                            <div class="pdBox listInfoDesc">
+                                <ul>
+                                    @foreach (var collection in ViewBag.getbread)
+                                    {
+                                        <li class="vendor"><i class="fa fa-gg" aria-hidden="true"></i> Nhóm sản phẩm: <span>@collection.CategoryName</span> </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="pdBox pdPriceBoxInfo">
+                                <div class="row">
+                                    <div class="col-sm-7 col-xs-12 pdBlockInfo pdPriceWrap">
+                                        <div class="wrapBlockInfo">
+                                            <div class="pdPrice">
+                                                <p class="item price">
+                                                    <span class="pdLabelPrice">Giá sản phẩm: </span>
+                                                    <span id="pdPriceNumber">@String.Format("{0:0,0₫}", item.Price)</span>
+                                                </p>
+                                            @if (item.PriceSale > item.Price)
+                                            {
+                                                decimal sale_ciel = item.PriceSale - item.Price ??0;
+                                                decimal pt_sale = (item.Price * 100) / item.PriceSale ??0;
+                                                pt_sale = 100 - pt_sale;
+                                                <p class="item comparePrice">
+                                                    <span class="pdLabelPrice">Giá thị trường: </span>
+                                                    <span id="pdComparePriceNumber">@String.Format("{0:0,0₫}", item.PriceSale)</span>
+                                                </p>
+
+                                                <p class="item compareSaleOff">
+                                                    <span class="pdLabelPrice">Tiết kiệm: </span>
+                                                    <span id="pdCompareSalePrice">@String.Format("{0:0,0₫}", sale_ciel) </span>
+                                                    <span id="pdCompareSaleOff">-@Math.Ceiling(pt_sale)%</span>
+                                                </p>
+                                             }
+                                            </div>
+                                            <div class="shortDesc">
+                                                <div class="desc">
+                                                    @item.DescriptShort
+                                                </div>
+                                            </div>
+                                            <div class="actionCart">
+                                                <div class="select clearfix" style="display:none">
+                                                    <select id="product-select" name="id">
+                                                        <option value="1013618768">Default Title - 14,200,000₫</option>
+                                                    </select>
+                                                </div>
+                                                <div class="groupQty">
+                                                    <button type="button" class="qtyControl minus">-</button>
+                                                    <input type="number" maxlength="12" min="1" class="input-text qty" title="Số lượng" size="2" value="1" name="Lines" id="pdQuantity">
+                                                    <button type="button" class="qtyControl plus">+</button>
+                                                </div>
+                                                <div class="listAction">
+                                                    <button type="button" data-productid="@item.ProductID" class="button btn-outline btn-addCart btn-add-cart-product ">
+                                                        <span>Thêm vào giỏ</span>
+                                                        <small>Xem hàng không thích có thể trả lại</small>
+                                                    </button>
+                                                    <a href="javascript:void(0)" class="button btn-outline btn-Soldout hidden">Hết hàng</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5 col-xs-12 pdBlockInfo pdPolicyWrap">
+                                        <div class="pdPolicyWrap">
+                                            <ul class="listPolicy">
+                                                <li class="item">
+                                                    <div class="box">
+                                                        <div class="icon">
+                                                            <img src="~/Content/ShopPage/images/product_policy_1.png" alt="Giao hàng" />
+                                                        </div>
+                                                        <div class="detail">
+                                                            <h5>
+                                                                Giao hàng
+                                                            </h5>
+                                                            <span>Miễn phí giao hàng nội thành Tp. HCM</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="item">
+                                                    <div class="box">
+                                                        <div class="icon">
+                                                            <img src="~/Content/ShopPage/images/product_policy_2.png" alt="Sản phẩm" />
+                                                        </div>
+                                                        <div class="detail">
+                                                            <h5>
+                                                                Sản phẩm
+                                                            </h5>
+                                                            <span>Cam kết chính hãng 100% <br> Phát hiện hàng giả đền 200%</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="item">
+                                                    <div class="box">
+                                                        <div class="icon">
+                                                            <img src="~/Content/ShopPage/images/product_policy_3.png" alt="Đổi trả" />
+                                                        </div>
+                                                        <div class="detail">
+                                                            <h5>
+                                                                Đổi trả
+                                                            </h5>
+                                                            <span>Đổi mới trong vong 30 ngày</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="item">
+                                                    <div class="box">
+                                                        <div class="icon">
+                                                            <img src="~/Content/ShopPage/images/product_policy_4.png" alt="Hỗ trợ" />
+                                                        </div>
+                                                        <div class="detail">
+                                                            <h5>
+                                                                Hỗ trợ
+                                                            </h5>
+                                                            <span>Hotline: 1900 636 099 <br> Thứ 2 - 7: 08:00 - 19:00 <br> Chủ nhật: 09:00 - 17:00</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="pdSocaial">
+                                            <h4>
+                                                Chia sẻ ngay
+                                            </h4>
+                                            <div class="box_social">
+                                                <div class="fb">
+                                                    <div class="fb-like" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                                                </div>
+                                                <div class="gg">
+                                                    <div class="g-plus" data-action="share" data-annotation="none"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pdBlockDetail pdTabInfo">
+                <div class="listTabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#tabDescription" aria-controls="tabDescription" role="tab" data-toggle="tab">Chi tiết sản phẩm</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#tabFbComment" aria-controls="tabFbComment" role="tab" data-toggle="tab">Bình luận</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="tabDescription">
+                            @Html.Raw(item.Content)
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="tabFbComment">
+                            <div class="container-comments">
+                                <div id="fb-root"></div>
+                                <div class="fb-comments" data-numposts="5" width="100%" data-colorscheme="light"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="pdBlockDetail pdRelatedInfo">
+                <div class="relatedPD">
+                    <div class="pdRelated">
+                        <div class="blockTitle">
+                            <h2>
+                                Sản phẩm cùng danh mục
+                            </h2>
+                        </div>
+                        <div class="relatedListting">
+                            <div class="contentRelatedPd owlDesign ">
+                                @foreach (var related in ViewBag.product_related)
+                                {
+                                    <div class="productItem">
+                                        <div class="pdLoopItem animated zoomIn">
+                                            <div class="itemLoop clearfix">
+                                                <div class="pdLoopImg imageHovers">
+                                                @if (related.PriceSale > related.Price)
+                                                {
+                                                    decimal sale_ciels = related.PriceSale - related.Price;
+                                                    decimal pt_sales = (related.Price * 100) / related.PriceSale;
+                                                    pt_sales = 100 - pt_sales;
+
+                                                    <div class="pdLabel sale">
+                                                        <span>Giảm @Math.Ceiling(pt_sales)%</span>
+                                                    </div>
+                                                }
+                                                    <a href="/products/@item.CategoryID/@related.ProductID/@related.Alias" title="@related.ProductName">
+                                                        <img src="@related.Images" data-reg="false" class="imgLooprelated" alt="@related.ProductName">
+                                                    </a>
+                                                    <div class="pdLoopAction">
+                                                        <div class="listAction">
+                                                            <a href="javascript:void(0)" class="btnLoop btn-quickview-1" data-id="@related.ProductID" data-toggle="tooltip" data-placement="left" title="Xem nhanh"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
+                                                            <a href="/products/@item.CategoryID/@related.ProductID/@related.Alias" class="btnLoop view_product" data-toggle="tooltip" data-placement="left" title="Xem chi tiết"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                                                            <a href="javascript:void(0)" class="add-cart btnLoop Addcart" data-variantid="@related.ProductID" title="Thêm vào giỏ"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pdLoopDetail text-center clearfix">
+                                                    <h3 class="pdLoopName"><a class="productName" href="/products/@item.CategoryID/@related.ProductID/@related.Alias" title="@related.ProductName">@related.ProductName</a></h3>
+                                                    <p class="pdPrice">
+                                                        <span> @String.Format("{0:0,0₫}", related.Price)</span>
+                                                        @if (related.PriceSale > related.Price)
+                                                        {
+                                                            <del class="pdComparePrice">@String.Format("{0:0,0₫}", related.PriceSale)</del>
+                                                        }
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+$(document).ready(function(){
+	jQuery('.contentRelatedPd').owlCarousel({
+		items: 5,
+		loop: false,
+		autoplay: false,
+		margin: 0,
+		responsiveClass: true,
+		nav : true,
+		navText: ['‹' , '›'],
+		responsive: {
+			0: {
+				items: 1
+			},
+			320: {
+				items: 2
+			},
+			600: {
+				items: 3
+			},
+			767: {
+				items: 3
+			},
+			992: {
+				items: 5
+			},
+			1200: {
+				items: 5
+			}
+		}
+	})
+	$(".imgThumb a").click(function(){
+		$(".imgThumb").removeClass('active');
+		$(this).parents('li').addClass('active');
+		$(".featureImg img").attr("src",$(this).attr("data-image"));
+		$("a.pdFancybox").attr('href',$(this).attr("data-fancybox"));
+	});
+	$("a.pdFancybox").fancybox({
+		'transitionIn'	:	'elastic',
+		'transitionOut'	:	'elastic',
+		'speedIn'		:	600,
+		'speedOut'		:	200
+	});
+	if($('.shortDesc .desc').html().trim() == '' ){
+		$('.shortDesc').hide()
+	}
+	$('.qtyControl').click(function(){
+		var $parent = $(this).parent(),
+				$input = $parent.find('#pdQuantity'),
+				valIn = parseInt($input.val()),
+				typePlus = $(this).hasClass('plus');
+		if(typePlus){
+			$input.val(valIn + 1);
+		}else{
+			if(valIn > 1){
+				$input.val(valIn - 1);
+			}
+		}
+	})
+})
+</script>
+     int k = 1;
+    foreach (var image in ViewBag.image_more)
+    {
+    if (k == 1)
+    {
+        <script>
+            $(document).ready(function(){
+                $(".featureImg img").attr("src", "/Upload/Images/@image.FileImages");
+                $("a.pdFancybox").attr('href', "/Upload/Images/@image.FileImages");
+            });
+
+        </script>
+    }
+    k++;
+    }
+    }

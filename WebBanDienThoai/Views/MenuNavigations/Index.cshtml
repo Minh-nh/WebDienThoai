@@ -1,0 +1,147 @@
+﻿@model PagedList.IPagedList<WebBanDienThoai.Models.MenuNavigation>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Danh sách Menu";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <div class="breadcrumb">
+        <div class="breadcrumb-left">
+            <i class="menu-icon fa fa-bars" aria-hidden="true"></i>
+            <span class="title_bread"> Danh sách Menu </span>
+        </div>
+        <div class="breadcrumb-add">
+            @Html.ActionLink("Thêm Mới Menu", "Create")
+        </div>
+    </div><!-- /.breadcrumb -->
+
+
+</div>
+
+<div class="internew-content">
+    <div class="title_cat">
+        <h3>Danh Sách Tất Cả Menu</h3>
+    </div>
+
+
+
+
+    <div class="content-layout">
+        <div class="pull-left">
+            <p class="count">Tổng số menu: <span>@ViewBag.count_menu</span> | Tổng số trang:  <span>@Model.PageCount</span></p>
+        </div>
+        <div class="pull-right">
+            <div class="border_search">
+                @using (Html.BeginForm("Index", "MenuNavigations", FormMethod.Get))
+                {
+                    <span class="next-input-add-on next-input__add-on--before">
+                        <svg class="svg-next-icon svg-next-icon-size-20">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#next-search-reverse">
+                                <svg id="next-search-reverse" class="icon-symbol--loaded" width="100%" height="100%"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M8 12c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm9.707 4.293l-4.82-4.82C13.585 10.493 14 9.296 14 8c0-3.313-2.687-6-6-6S2 4.687 2 8s2.687 6 6 6c1.296 0 2.492-.415 3.473-1.113l4.82 4.82c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414z"></path></svg></svg>
+                            </use>
+                        </svg>
+                    </span><input type="text" placeholder="Nhập từ khóa..." value="@ViewBag.keyword_search" name="q" /><input type="submit" class="hidden" />
+                }
+            </div>
+        </div>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th width="110px;">
+                Thứ tự sắp xếp
+            </th>
+            <th>
+                Tên Menu
+            </th>
+
+            <th>
+                Danh Mục Cha
+            </th>
+
+            <th>
+                Kiểu trang
+            </th>
+
+
+
+            <th>
+                Ngày tạo
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th>Tùy chỉnh</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="text-center">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sequence)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MenuName)
+                </td>
+                <td>
+                    @{
+                        if (item.MenuParents == 0)
+                        {
+                            <span>Danh Mục Gốc</span>
+                        }
+                        else
+                        {
+                            foreach (var items in ViewBag.parent_menu)
+                            {
+                                <span>@items.MenuName</span>
+                            }
+
+                        }
+                    }
+                </td>
+                <td>
+                   @if(item.PageStyle == 1)
+                   {
+                       <span>Trang Liên Kết</span>
+                   }
+                   else if (item.PageStyle == 2)
+                   {
+                    <span>Trang Nội Dung</span>
+                   }
+                   else if (item.PageStyle == 3)
+                   {
+                    <span>Liên Kết URL</span>
+                   }
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td>
+                    @{
+                        if (item.Status == true)
+                        {
+                            <p class="btn btn-success btn-xs text-center">Active</p>
+                        }
+                        else
+                        {
+                            <p class="btn btn-danger btn-xs text-center">Disible</p>
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.MenuID }, htmlAttributes: new { @class = "view_sua btn btn-xs btn-success" })
+                    @Html.ActionLink("Xóa", "Delete", new { id = item.MenuID }, htmlAttributes: new { @class = "btn_confirm btn btn-xs btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <div class="pagination">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, @q = ViewBag.keyword_search }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+    </div>
+
+</div>

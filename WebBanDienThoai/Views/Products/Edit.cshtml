@@ -1,0 +1,466 @@
+﻿
+@model WebBanDienThoai.Models.Product
+
+@{
+    ViewBag.Title = "Chỉnh sửa sản phẩm";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="curd" style="margin-right:70px;width:100%;">
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data", id = "form-edit-product" }))
+    {
+
+        <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+            <div class="breadcrumb">
+                <div class="breadcrumb-left">
+                    <i class="menu-icon fa fa-user" aria-hidden="true"></i>
+                    <a href="~/Products/Index" class="title_bread"> Danh sách sản phẩm</a>
+                    <span style="color:#ccc;margin:0px 15px;font-size:20px;"> /</span>
+                    <span class="title_bread"> Chỉnh sửa</span>
+                </div>
+                <div class="breadcrumb-add">
+                    @Html.ActionLink("Hủy", "Index", "", new { @class = "btn btn-default" })
+                    <input type="submit" value="Lưu Lại" class="btn btn-primary" />
+                </div>
+            </div><!-- /.breadcrumb -->
+
+
+        </div>
+
+
+        <div class="createandedit">
+
+            <div class="row">
+
+
+
+                @Html.AntiForgeryToken()
+
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ProductID)
+                @Html.HiddenFor(model => model.Author)
+
+
+                <div class="col-xs-12 col-md-8">
+
+                    <div class="editcreate">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Alias, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.EditorFor(model => model.Alias, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.TextAreaFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" }, id = "txtContent" })
+                            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DescriptShort, htmlAttributes: new { @class = "control-label" })
+
+                            @Html.TextAreaFor(model => model.DescriptShort, new { htmlAttributes = new { @class = "form-control" }, rows = "4" })
+                            @Html.ValidationMessageFor(model => model.DescriptShort, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+
+
+
+                    </div>
+
+
+
+
+                    <div class="des-product-info-images">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="tepi">
+                                    <div class="pull-left">
+                                        <p style="font-weight:bold;">Hình ảnh</p>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="javascript:0" onclick="performClick('uploadFile');">Chọn hình</a>
+                                    </div>
+                                </div>
+
+                                <input type="file" name="image_product" class="hidden" multiple id="uploadFile" onchange="loadFile(event);" />
+
+
+   
+
+                                <div id="showme">
+                                    @foreach (var item in Model.ImageProducts)
+                                    {
+                                        <div class='more_img'>
+                                            <a class='remove_images' href='javascript::0' data-id="@item.ImageProductID">
+                                                <i class='fa fa-trash-o' aria-hidden='true'></i> Xóa
+                                            </a>
+                                            <img src="~/Upload/Images/@item.FileImages" class='img_pro' />
+                                        </div>
+                                    }
+
+                                    <div id="edit_showme"></div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div class="des-product-info">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label" })
+
+                                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PriceSale, htmlAttributes: new { @class = "control-label" })
+
+                                    @Html.EditorFor(model => model.PriceSale, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PriceSale, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Quanlity, htmlAttributes: new { @class = "control-label" })
+
+                                    @Html.EditorFor(model => model.Quanlity, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Quanlity, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                </div>
+
+
+
+                <div class="col-xs-12 col-md-4">
+                    <div class="visible-status">
+                        <p class="title_st">Hiển thị</p>
+                        <div class="check-st">
+                            <div class="show-st">
+                                @Html.RadioButtonFor(model => model.Status, "true") <span class="hideshow">Hiện</span>
+                            </div>
+                            <div class="show-st">
+                                @Html.RadioButtonFor(model => model.Status, "false") <span class="hideshow">Ẩn</span>
+                            </div>
+                        </div>
+
+                        <div class="time-stamp">
+                            <p class="title_sts"> Thời Gian:</p>
+                            @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="bot-des-more">
+                        <h3 class="title_pl">Phân loại</h3>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CategoryID, "Nhón Sản Phẩm", htmlAttributes: new { @class = "control-label" })
+                            <span class="custom-dropdown custom-dropdown-white">
+                                @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control custom-dropdown-select" })
+                            </span>
+                            @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+                    <div class="image-avatar">
+                        <p class="title_anh">Ảnh đại diện</p>
+
+                        <div class="frame-image">
+
+                            <input type="hidden" id="hidProductID" value="@Model.Images" name="Images" />
+
+
+
+                            <div id="showImage">
+                                <img src="@Model.Images" id="image_showed" width="100%" />
+                            </div>
+
+                        </div>
+
+                        @*<a href="javascript::0" class="change_image" style="display:block;" onclick="performClick2('uploadFile2');">Thay hình ảnh</a>*@
+                        <a href="javascript:0" class="change_image" style="display:block;" onclick="performClick2('uploadFile2');">Chọn hình đại diện</a>
+
+                    </div>
+
+
+
+
+
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+    }
+
+</div>
+
+
+
+
+<script type="text/javascript">
+function performClick(elemId) {
+   var elem = document.getElementById(elemId);
+   if(elem && document.createEvent) {
+      var evt = document.createEvent("MouseEvents");
+      evt.initEvent("click", true, false);
+      elem.dispatchEvent(evt);
+   }
+}
+</script>
+
+
+<script type="text/javascript">
+function performClick2(elemId) {
+   var elem = document.getElementById(elemId);
+   if(elem && document.createEvent) {
+      var evt = document.createEvent("MouseEvents");
+      evt.initEvent("click", true, false);
+      elem.dispatchEvent(evt);
+   }
+}
+</script>
+
+
+<script type="text/javascript">
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    $('.noset-image').hide();
+                    //$('.change_image').css("display","block");
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#image_showed')
+                            .attr('src', e.target.result);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+</script>
+
+
+
+
+<script>
+    var loadFile = function (event) {
+        $('.jiuos').hide();
+        $("#edit_showme").html("");
+            var files = event.target.files;
+            for (var i = 0; i < files.length; i++) {
+                $("#edit_showme").append("<div class='more_img'> <img src='" + URL.createObjectURL(event.target.files[i]) + "' class='img_pro' /></div>");
+
+
+
+
+
+            }
+    }
+
+    $('.more_img').hover(function () {
+        $(this).find("a").show();
+    },
+    function () {
+        $(this).find("a").hide();
+    });
+
+
+</script>
+
+
+<script>
+
+    $('.select-image,.change_image').click(function () {
+        var finder = new CKFinder();
+        finder.selectActionFunction = function (url) {
+            $('.noset-image').hide();
+            $('#hidProductID').val(url);
+            $('.change_image').css("display","block");
+            $('#image_showed').attr("src", url);
+            $('.delete_imgavt').css("display", "block");
+
+        };
+
+        $('.delete_imgavt').click(function () {
+            $('#image_showed').removeAttr("src");
+            $(this).hide();
+            $('.change_image').css("display", "none");
+            $('.noset-image').show();
+        });
+        finder.popup();
+    });
+
+
+
+
+
+</script>
+
+
+
+
+<script>
+
+        $('.remove_images').click(function (e) {
+            e.preventDefault();
+            var $ctrl = $(this);
+            if (confirm('Bạn có chắc chắn muốn xóa không ?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteFile")',
+                    type: 'POST',
+                    data: { id: $(this).data('id') }
+                }).done(function (data) {
+                    if (data.Result == "OK") {
+                        $ctrl.closest('.more_img').remove();
+                    }
+                    else if (data.Result.Message) {
+                        alert(data.Result.Message);
+                    }
+                }).fail(function () {
+                    alert("Có lỗi xảy ra vui lòng thử lại");
+                })
+
+            }
+        });
+</script>
+
+
+
+
+<script>
+
+
+
+        $("#ProductName").focusout(function () {
+        var Text = $(this).val();
+        Text = Text.toLowerCase();
+        $("#Alias").val(convertToSlug(Text));
+    });
+
+
+        $("#ProductName").mouseout(function () {
+            var Text = $(this).val();
+            Text = Text.toLowerCase();
+            $("#Alias").val(convertToSlug(Text));
+        });
+</script>
+
+
+<script>
+
+    $(document).ready(function () {
+        var str_price = "@Model.Price";
+        var arr_price = str_price.replace(".00", "");
+        $('#Price').val(arr_price);
+
+        var str_sale = "@Model.PriceSale";
+        var arr_sale = str_sale.replace(".00", "");
+        $('#PriceSale').val(arr_sale);
+    });
+
+</script>
+
+<script>
+    $('#Price,#PriceSale').focusout(function (e) {
+        $(this).val(formatCurrency(this.value.replace(/[,đ]/g, '')));
+    }).on('keypress', function (e) {
+        if (!$.isNumeric(String.fromCharCode(e.which))) e.preventDefault();
+    }).on('paste', function (e) {
+        var cb = e.originalEvent.clipboardData || window.clipboardData;
+        if (!$.isNumeric(cb.getData('text'))) e.preventDefault();
+    });
+    function formatCurrency(number) {
+        var n = number.split('').reverse().join("");
+        var n2 = n.replace(/\d\d\d(?!$)/g, "$&,");
+        return n2.split('').reverse().join('');
+    }
+
+</script>
+
+
+
+<script>
+    $("#form-edit-product").submit(function () {
+        var price = $("#Price").val();
+
+        price = price.toString();
+        price = price.replace(",", "");
+        price = price.replace(",", "");
+        price = price.replace(",", "");
+
+        var pricesale = $("#PriceSale").val();
+        pricesale = pricesale.toString();
+        pricesale = pricesale.replace(",", "");
+        pricesale = pricesale.replace(",", "");
+        pricesale = pricesale.replace(",", "");
+
+
+        $("#Price").val(price);
+        $("#PriceSale").val(pricesale);
+    });
+
+</script>

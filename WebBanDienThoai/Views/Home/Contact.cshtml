@@ -1,0 +1,116 @@
+﻿@model List<WebBanDienThoai.Models.Configure>
+@{
+    ViewBag.Title = "Liên Hệ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section id="insContactPage">
+    <div class="insBreadcrumb ">
+        <div class="container">
+            <div class="breadcrumb-wrap">
+                <ol class="breadcrumb breadcrumb-arrow hidden-sm hidden-xs">
+
+                    <li><a href="/" target="_self">Trang chủ</a></li>
+
+
+
+                    <li class="active"><span>Liên hệ</span></li>
+
+
+
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="wrapperContactPage">
+
+
+            <div class='text-center alert alert-warning alert-sm' style="display:none;@TempData["displaycontact"]">
+                @TempData["thankyou"]
+            </div>
+
+            <div class="headingPage">
+                <h1 class="title">Liên hệ</h1>
+            </div>
+
+            <div class="ggMap">
+                @foreach (var item in Model)
+                {
+                    @Html.Raw(item.Map)
+                }
+
+            </div>
+
+            <div class="contactList">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12 col-xs-12 pull-left infoForm">
+                        <div class="wrapForm">
+                            <h3 class="name-head">
+                                <span>Bạn cần hỗ trợ? Hãy gửi thông tin cho chúng tôi</span>
+                            </h3>
+                            <form accept-charset="UTF-8" action="/Home/AddContact" class="contact-form" method="post">
+                                <div class="row">
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <span class="ico"><i class="fa fa-user-circle-o" aria-hidden="true"></i></span>
+                                            <input required="required" type="text" id="contactFormName" class="form-control input-lg" name="fullname" placeholder="Tên của bạn" autocapitalize="words" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <span class="ico"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                            <input required="required" type="text" id="contactFormPhone" class="form-control input-lg" name="phone" placeholder="Số điện thoại" autocapitalize="words" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <span class="ico"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                                            <input required="required" type="email" name="email" placeholder="Email của bạn" id="contactFormEmail" class="form-control input-lg" autocorrect="off" autocapitalize="off" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="contactFormMessage" class="sr-only">Nội dung</label>
+                                            <textarea required="required" rows="6" name="content_comment" class="form-control" placeholder="Viết bình luận" id="contactFormMessage"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-xs-12">
+                                        <button type="submit" class="btn btn-outline">Gửi thông tin</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12 pull-right infoText">
+                        <div class="wrap">
+
+                            @foreach (var item in Model)
+                            {
+                                <h3 class="name-head">	Chúng tôi ở đây</h3>
+                                <p>@item.NameCompany	</p>
+                                <ul class="info-address">
+                                    <li>
+                                        <i class="glyphicon glyphicon-map-marker"></i>
+                                        <span>@item.Address</span>
+                                    </li>
+                                    <li>
+                                        <i class="glyphicon glyphicon-envelope"></i>
+                                        <span>@item.Email</span>
+                                    </li>
+
+                                    <li>
+                                        <i class="glyphicon glyphicon-phone-alt"></i>
+                                        <span>@item.Hotline</span>
+                                    </li>
+
+                                </ul>
+                            }
+                           
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

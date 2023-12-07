@@ -1,0 +1,47 @@
+﻿@model List<WebBanDienThoai.Models.Configure>
+
+@foreach (var item in Model)
+{
+    <header id="insHeaderPage">
+        <div id="headerPage">
+            <div class="container">
+                <div class="insHeaderWrap">
+                    <div class="row">
+                        <div id="headerLogo" class="col-md-2 col-sm-12 col-xs-12">
+                            <div class="visible-xs mbToggle translateY-50">
+                                <a href="javascript:void(0)" class="btnMBToggleNav"><img src="~/Content/ShopPage/images/button_nav.png" alt="TN Shop"></a>
+                            </div>
+
+                            <p>
+                                <a href="/"><img src="@item.Logo" alt="@item.NameCompany" /></a>
+                            </p>
+                            <h1 class="hide">
+                                @item.NameCompany
+                            </h1>
+                        </div>
+                        <div id="headerSearch" class="col-lg-4 col-md-3 col-sm-12 col-xs-12">
+                            <div class="frmSearch">
+                            @using (Html.BeginForm("Index", "search", FormMethod.Get, new { id = "searchFRM" }))
+                            {
+                                    <i class="glyphicon glyphicon-search"></i>
+                                    <input type="hidden" name="type" value="product" />
+                                    <input required autocomplete="off" type="text" name="q" id="inputSearchAuto" placeholder="Nhập từ khóa cần tìm..." />
+                                    <button type="submit" class="insButton btnSearch">
+                                        Tìm kiếm
+                                    </button>
+                            }
+                                <div id="ajaxSearchResults" class="ajaxSearchAuto" style="display: none">
+                                    <div class="resultsContent">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @{ Html.RenderAction("MainMenu", "Home");}
+                        <div class="overlayMenu"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+                            }
+

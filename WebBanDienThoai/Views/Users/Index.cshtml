@@ -1,0 +1,217 @@
+﻿@model PagedList.IPagedList<WebBanDienThoai.Models.User>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Danh sách quản trị";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int i = 1;
+}
+
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <div  class="breadcrumb">
+        <div class="breadcrumb-left">
+            <i class="menu-icon fa fa-user" aria-hidden="true"></i>
+            <span class="title_bread"> Danh sách quản trị</span>
+        </div>
+           <div class="breadcrumb-add">
+               @Html.ActionLink("Thêm Mới", "Create")
+           </div>
+    </div><!-- /.breadcrumb -->
+
+
+</div>
+<div class="internew-content">
+<div class="title_cat">
+    <h3>Quản trị viên</h3>
+</div>
+
+
+    <div class="content-layout">
+        <div class="pull-left">
+            <p class="count">Tổng số quản trị viên: <span>@ViewBag.count_user</span> | Tổng số trang:  <span>@Model.PageCount</span></p>
+        </div>
+        <div class="pull-right">
+            <div class="border_search">
+                @using (Html.BeginForm("Index", "Users", FormMethod.Get))
+                {
+                    <span class="next-input-add-on next-input__add-on--before">
+                        <svg class="svg-next-icon svg-next-icon-size-20">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#next-search-reverse">
+                                <svg id="next-search-reverse" class="icon-symbol--loaded" width="100%" height="100%"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M8 12c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm9.707 4.293l-4.82-4.82C13.585 10.493 14 9.296 14 8c0-3.313-2.687-6-6-6S2 4.687 2 8s2.687 6 6 6c1.296 0 2.492-.415 3.473-1.113l4.82 4.82c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414z"></path></svg></svg>
+                            </use>
+                        </svg>
+                    </span><input type="text" placeholder="Nhập từ khóa..." value="@ViewBag.keyword_search" name="q" /><input type="submit" class="hidden" />
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+<table class="table table-responsive">
+    <tr>
+        <th>
+            STT
+        </th>
+        <th>
+            Tên Truy Cập
+        </th>
+
+        <th>
+            Họ Và Tên
+        </th>
+        <th>
+            Ảnh đại diện
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Địa Chỉ
+        </th>
+        <th>
+            Số Điện Thoại
+        </th>
+        <th>
+            Ngày Cập Nhật
+        </th>
+        <th>
+            Trạng Thái	
+        </th>
+        <th width="170">Tùy Chỉnh</th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Fullname)
+        </td>
+        <td class="text-center">
+            
+            <img src="@item.Image" style="width:60px;height:60px" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td class="text-center">
+            
+
+            @{ 
+                if(item.Status == true)
+                {
+                     <p class="btn btn-success btn-xs text-center">Active</p>
+                }else
+                {
+                    <p class="btn btn-danger btn-xs text-center">Disible</p>
+                }
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Xóa", "Delete", new { id=item.UserID },htmlAttributes: new { @class= "btn_confirm btn btn-xs btn-danger" } )
+        </td>
+    </tr>
+}
+
+</table>
+
+    <div class="pagination">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, @q = ViewBag.keyword_search }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+    </div>
+
+
+</div>
+
+
+
+
+
+<div id="modal_permission" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content" id="data-body">
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<script>
+        function show_modal_id(action) {
+            $('#modal_permission').modal();
+
+            $.ajax({
+                method: "GET",
+                url: action,
+                success: function (data) {
+                    $('#data-body').html(data);
+                }
+            });
+        }
+
+</script>
+
+
+
+<script>
+    function getPermissions(action,usergrant) {
+        $.ajax({
+            method: "GET",
+            url: action,
+            data: { usertemp : usergrant },
+            success: function (data) {
+                $('.show_permission').html('');
+                $.each(data, function (index, value) {
+                    if (value.IsGranted) {
+                        $(".show_permission").append("<input type='checkbox' checked onchange='updatePermissions(" + "\"/Users/updatePermission/\"+this.value,\"@Session["usergranted"]\")' value='" + value.PermissionID + "'>" + value.Description + "<br>");
+                    }else{
+                        $(".show_permission").append("<input type='checkbox'  onchange='updatePermissions(" + "\"/Users/updatePermission/\"+this.value,\"@Session["usergranted"]\")' value='" + value.PermissionID + "'>" + value.Description + "<br>");
+                    }
+                })
+            }
+        })
+    }
+</script>
+
+
+<script>
+    function updatePermissions(action, usergrant) {
+        $.ajax({
+            method: "GET",
+            url: action,
+            data: { usertemps: usergrant },
+            success: function (data) {
+                $('.message_permission').html(data);
+            }
+
+        });
+    }
+    </script>
+
+
+<script>
+$(document).ready(function(){
+    $('#modal_permission').on('hidden.bs.modal', function () {
+            location.reload();
+	});
+});
+</script>

@@ -1,0 +1,580 @@
+﻿
+
+@model WebBanDienThoai.Models.Home
+
+@{
+    ViewBag.Title = "Quản lí trang chủ người dùng";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <div class="breadcrumb">
+            <div class="breadcrumb-left">
+                <i class="menu-icon fa fa-user" aria-hidden="true"></i>
+                <a href="~/Admin/Articles" class="title_bread"> Quản lí trang chủ</a>
+                <span style="color:#ccc;margin:0px 15px;font-size:20px;"> /</span>
+                <span class="title_bread"> Thay đổi thông tin</span>
+            </div>
+            <div class="breadcrumb-add">
+
+                <input type="submit" value="Lưu Lại Thay Đổi" class="btn btn-primary" />
+            </div>
+        </div><!-- /.breadcrumb -->
+
+
+    </div>
+
+
+
+
+    <div class="createandedit">
+
+        <div class="row">
+            <div class="editcreate">
+
+                @Html.AntiForgeryToken()
+
+
+
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.HomeID)
+
+
+                <div class="panel panel-default" style="overflow:hidden;">
+                    <div class="panel-heading" style="background: #383838;color:#fff;margin-bottom:20px;">
+                        <span class="glyphicon glyphicon-star" aria-hidden="true">&nbsp;</span>Thay đổi Banner
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Banner_1, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="hidden" name="Banner_1" value="@Model.Banner_1" id="text_banner_1" />
+                            <a href="javascript::0" class="change_banner1 change_banner_style btn btn-sm btn-success">Chọn ảnh</a>
+                            <div class="show">
+                                <img src="@Model.Banner_1" id="banner_1" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Link_banner_1, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Link_banner_1, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Link_banner_1, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Banner_2, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="hidden" name="Banner_2" value="@Model.Banner_2" id="text_banner_2" />
+                            <a href="javascript::0" class="change_banner2 change_banner_style btn btn-sm btn-success">Chọn ảnh</a>
+                            <div class="show">
+                                <img src="@Model.Banner_2" id="banner_2" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Link_banner_2, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Link_banner_2, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Link_banner_2, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Banner_3, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="hidden" name="Banner_3" value="@Model.Banner_3" id="text_banner_3" />
+                            <a href="javascript::0" class="change_banner3 change_banner_style btn btn-sm btn-success">Chọn ảnh</a>
+                            <div class="show">
+                                <img src="@Model.Banner_3" id="banner_3" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Link_banner_3, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Link_banner_3, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Link_banner_3, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Banner_4, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="hidden" name="Banner_4" value="@Model.Banner_4" id="text_banner_4" />
+                            <a href="javascript::0" class="change_banner4 change_banner_style btn btn-sm btn-success">Chọn ảnh</a>
+                            <div class="show">
+                                <img src="@Model.Banner_4" id="banner_4" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Link_banner_4, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Link_banner_4, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Link_banner_4, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+
+
+
+
+                <div class="panel panel-default" style="overflow:hidden;">
+                    <div class="panel-heading" style="background: #383838;color:#fff;margin-bottom:20px;">
+                        <span class="glyphicon glyphicon-star" aria-hidden="true">&nbsp;</span>Nhóm sản phẩm hiển thị ở trang chủ 1
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Collection1_Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Collection1_Status)
+                                @Html.ValidationMessageFor(model => model.Collection1_Status, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.title_category1, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.title_category1, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.title_category1, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Collection_home1, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <span class="custom-dropdown custom-dropdown-white">
+                                @Html.DropDownList("Collection_home1", new SelectList(ViewBag.categorys, "CategoryID", "CategoryName"), "====Chọn Nhóm Sản Phẩm====", new { id = "Collection_home1", @class = "form-control custom-dropdown-select" })
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.button_more1, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.button_more1, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.button_more1, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+                <div class="panel panel-default" style="overflow:hidden;">
+                    <div class="panel-heading" style="background: #383838;color:#fff;margin-bottom:20px;">
+                        <span class="glyphicon glyphicon-star" aria-hidden="true">&nbsp;</span>Nhóm sản phẩm hiển thị ở trang chủ 2
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Collection2_Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Collection2_Status)
+                                @Html.ValidationMessageFor(model => model.Collection2_Status, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.title_category2, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.title_category2, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.title_category2, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Banner_Collection2, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="hidden" name="Banner_Collection2" value="@Model.Banner_Collection2" id="text_banner_collection_2" />
+                            <a href="javascript::0" class="change_banner_collection_2 change_banner_style btn btn-sm btn-success">Chọn ảnh</a>
+                            <div class="show">
+                                <img src="@Model.Banner_Collection2" id="banner_collection_2" />
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Banner_Collection2_Link, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Banner_Collection2_Link, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Banner_Collection2_Link, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Collection_home2, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <span class="custom-dropdown custom-dropdown-white">
+                                @Html.DropDownList("Collection_home2", new SelectList(ViewBag.categorys, "CategoryID", "CategoryName"), "====Chọn Nhóm Sản Phẩm====", new { id = "Collection_home2", @class = "form-control custom-dropdown-select" })
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.button_more2, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.button_more2, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.button_more2, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.title_left2, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.title_left2, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.title_left2, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Collection_left2, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <span class="custom-dropdown custom-dropdown-white">
+                                @Html.DropDownList("Collection_left2", new SelectList(ViewBag.categorys, "CategoryID", "CategoryName"), "====Chọn Nhóm Sản Phẩm====", new { id = "Collection_left2", @class = "form-control custom-dropdown-select" })
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.button_more_left2, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.button_more_left2, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.button_more_left2, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+
+                <div class="panel panel-default" style="overflow:hidden;">
+                    <div class="panel-heading" style="background: #383838;color:#fff;margin-bottom:20px;">
+                        <span class="glyphicon glyphicon-star" aria-hidden="true">&nbsp;</span>Nhóm sản phẩm hiển thị ở trang chủ 3
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Collection3_Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Collection3_Status)
+                                @Html.ValidationMessageFor(model => model.Collection3_Status, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.title_category3, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.title_category3, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.title_category3, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Banner_Collection3, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="hidden" name="Banner_Collection3" value="@Model.Banner_Collection3" id="text_banner_collection_3" />
+                            <a href="javascript::0" class="change_banner_collection_3 change_banner_style btn btn-sm btn-success">Chọn ảnh</a>
+                            <div class="show">
+                                <img src="@Model.Banner_Collection3" id="banner_collection_3" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Banner_Collection3_Link, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Banner_Collection3_Link, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Banner_Collection3_Link, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Collection_home3, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <span class="custom-dropdown custom-dropdown-white">
+                                @Html.DropDownList("Collection_home3", new SelectList(ViewBag.categorys, "CategoryID", "CategoryName"), "====Chọn Nhóm Sản Phẩm====", new { id = "Collection_home3", @class = "form-control custom-dropdown-select" })
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.button_more3, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.button_more3, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.button_more3, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.title_right3, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.title_right3, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.title_right3, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Collection_right3, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <span class="custom-dropdown custom-dropdown-white">
+                                @Html.DropDownList("Collection_right3", new SelectList(ViewBag.categorys, "CategoryID", "CategoryName"), "====Chọn Nhóm Sản Phẩm====", new { id = "Collection_right3", @class = "form-control custom-dropdown-select" })
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.button_more_right3, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.button_more_right3, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.button_more_right3, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+
+                <div class="panel panel-default" style="overflow:hidden;">
+                    <div class="panel-heading" style="background: #383838;color:#fff;margin-bottom:20px;">
+                        <span class="glyphicon glyphicon-star" aria-hidden="true">&nbsp;</span>Nhóm sản phẩm hiển thị ở trang chủ 4
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Collection4_Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Collection4_Status)
+                                @Html.ValidationMessageFor(model => model.Collection4_Status, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.title_category4, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.title_category4, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.title_category4, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Banner_Collection4, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input type="hidden" name="Banner_Collection4" value="@Model.Banner_Collection4" id="text_banner_collection_4" />
+                            <a href="javascript::0" class="change_banner_collection_4 change_banner_style btn btn-sm btn-success">Chọn ảnh</a>
+                            <div class="show">
+                                <img src="@Model.Banner_Collection4" id="banner_collection_4" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Banner_Collection4_Link, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Banner_Collection4_Link, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Banner_Collection4_Link, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Collection_home4, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <span class="custom-dropdown custom-dropdown-white">
+                                @Html.DropDownList("Collection_home4", new SelectList(ViewBag.categorys, "CategoryID", "CategoryName"), "====Chọn Nhóm Sản Phẩm====", new { id = "Collection_home4", @class = "form-control custom-dropdown-select" })
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.button_more4, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.button_more4, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.button_more4, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.title_left4, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.title_left4, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.title_left4, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Collection_left4, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <span class="custom-dropdown custom-dropdown-white">
+                                @Html.DropDownList("Collection_left4", new SelectList(ViewBag.categorys, "CategoryID", "CategoryName"), "====Chọn Nhóm Sản Phẩm====", new { id = "Collection_left4", @class = "form-control custom-dropdown-select" })
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.button_more_left4, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.button_more_left4, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.button_more_left4, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+}
+
+
+
+<style>
+    .form-group {
+        overflow: hidden;
+    }
+
+    #banner_1, #banner_2, #banner_3, #banner_4 {
+        clear: both;
+    }
+
+    .show {
+        padding-top: 10px;
+        max-height: 250px;
+    }
+
+        .show img {
+            max-width: 100%;
+        }
+</style>
+
+
+<script>
+
+    $('.change_banner1').click(function () {
+        var finder = new CKFinder();
+        finder.selectActionFunction = function (url) {
+            $('#text_banner_1').val(url);
+            $('#banner_1').attr("src", url);
+
+
+        };
+        finder.popup();
+    });
+
+
+
+    $('.change_banner2').click(function () {
+        var finder = new CKFinder();
+        finder.selectActionFunction = function (url) {
+            $('#text_banner_2').val(url);
+            $('#banner_2').attr("src", url);
+
+
+        };
+        finder.popup();
+    });
+
+
+    $('.change_banner3').click(function () {
+        var finder = new CKFinder();
+        finder.selectActionFunction = function (url) {
+            $('#text_banner_3').val(url);
+            $('#banner_3').attr("src", url);
+
+
+        };
+        finder.popup();
+    });
+
+
+    $('.change_banner4').click(function () {
+        var finder = new CKFinder();
+        finder.selectActionFunction = function (url) {
+            $('#text_banner_4').val(url);
+            $('#banner_4').attr("src", url);
+
+
+        };
+        finder.popup();
+    });
+
+
+
+    $('.change_banner_collection_2').click(function () {
+        var finder = new CKFinder();
+        finder.selectActionFunction = function (url) {
+            $('#text_banner_collection_2').val(url);
+            $('#banner_collection_2').attr("src", url);
+
+
+        };
+        finder.popup();
+    });
+
+
+    $('.change_banner_collection_3').click(function () {
+        var finder = new CKFinder();
+        finder.selectActionFunction = function (url) {
+            $('#text_banner_collection_3').val(url);
+            $('#banner_collection_3').attr("src", url);
+
+
+        };
+        finder.popup();
+    });
+
+
+
+    $('.change_banner_collection_4').click(function () {
+        var finder = new CKFinder();
+        finder.selectActionFunction = function (url) {
+            $('#text_banner_collection_4').val(url);
+            $('#banner_collection_4').attr("src", url);
+
+
+        };
+        finder.popup();
+    });
+
+
+</script>
+

@@ -1,0 +1,132 @@
+﻿@model PagedList.IPagedList<WebBanDienThoai.Models.Order>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Tất Cả Đơn Hàng";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+    <div class="breadcrumb">
+        <div class="breadcrumb-left">
+            <i class="menu-icon fa fa-briefcase" aria-hidden="true"></i>
+            <span class="title_bread">Đơn Hàng</span>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<div class="internew-content">
+    <div class="title_cat">
+        <h3>Tất cả đơn hàng</h3>
+    </div>
+
+
+
+    <div class="content-layout">
+        <div class="pull-left">
+            <p class="count">Tổng số đơn hàng: <span>@ViewBag.count_order</span> | Tổng số trang:  <span>@Model.PageCount</span></p>
+        </div>
+        <div class="pull-right">
+            <div class="border_search">
+                @using (Html.BeginForm("Index", "Order", FormMethod.Get))
+                {
+                    <span class="next-input-add-on next-input__add-on--before">
+                        <svg class="svg-next-icon svg-next-icon-size-20">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#next-search-reverse">
+                                <svg id="next-search-reverse" class="icon-symbol--loaded" width="100%" height="100%"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M8 12c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm9.707 4.293l-4.82-4.82C13.585 10.493 14 9.296 14 8c0-3.313-2.687-6-6-6S2 4.687 2 8s2.687 6 6 6c1.296 0 2.492-.415 3.473-1.113l4.82 4.82c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414z"></path></svg></svg>
+                            </use>
+                        </svg>
+                    </span><input type="text" placeholder="Nhập từ khóa..." value="@ViewBag.keyword_search" name="q" /><input type="submit" class="hidden" />
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                Mã Đơn
+            </th>
+            <th>
+                Ngày đặt
+            </th>
+            <th>
+                Khách Hàng
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th>
+                Phương thức thanh toán
+            </th>
+            <th>
+                Tổng tiền
+            </th>
+
+            <th>Xem Chi Tiết</th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            <tr class="text-center" style="font-weight:bold;">
+                <td class="detail_idorder">
+                   <a href="~/Admin/Orders/Details/@item.orderID">#@Html.DisplayFor(modelItem => item.orderID)</a> 
+
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td>
+                    <a href="~/Admin/Orders/Details/@item.orderID"> @Html.DisplayFor(modelItem => item.customerID)</a>
+</td>
+                <td>
+                    @{ 
+                        if (item.Status == 1)
+                        {
+                            <p class="btn btn-warning btn-xs text-center">Chờ xử lý</p>
+                        }
+                        else if(item.Status == 2)
+                        {
+                            <p class="btn btn-danger btn-xs text-center">Đã hủy</p>
+                        }
+                        else if (item.Status == 3)
+                        {
+                            <p class="btn btn-success btn-xs text-center">Đã xác nhận</p>
+                        }
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Payment.PaymentName)
+                </td>
+                <td style="color:red;font-weight:bold;font-size:16px;">
+                    @Html.DisplayFor(modelItem => item.TotalMoney)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Xem Chi Tiết", "Details", new { id = item.orderID }, htmlAttributes: new { @class = " btn btn-xs btn-primary" })
+                </td>
+
+
+            </tr>
+
+           
+        }
+
+    </table>
+
+    <div class="pagination">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, @q = ViewBag.keyword_search }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+    </div>
+
+    </div>

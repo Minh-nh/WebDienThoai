@@ -1,0 +1,58 @@
+﻿
+@{
+    foreach (var item in ViewBag.config_home)
+    {
+        ViewBag.Title = item.NameCompany;
+        ViewBag.MetaTittes = item.MetaTitle;
+        ViewBag.MetaKeyword = item.MetaKeyword;
+        ViewBag.MetaDescription = item.MetaDescription;
+    }
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@section slider{
+    @Html.Action("Slider", "Home")
+ }
+
+@*<section id="bannersHome" class="blockSection hidden-xs">
+    <div class="container">
+        <div class="wapperBanners">
+            <div class="row">
+
+                @foreach (var banner_bot in ViewBag.getTitleBlock1)
+                {
+                    <div class="col-sm-6 col-xs-6 bannerItem first">
+                        <div class="wrapItem imageHover">
+                            <a href="@banner_bot.Link_banner_3"><img src="@banner_bot.Banner_3"  /></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-6 bannerItem last">
+                        <div class="wrapItem imageHover">
+                            <a href="@banner_bot.Link_banner_4"><img src="@banner_bot.Banner_4" /></a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>*@
+
+
+@RenderPage("~/Views/Home/BlockProduct1.cshtml")
+<hr />
+
+@RenderPage("~/Views/Home/BlockProduct2.cshtml")
+<hr />
+
+@RenderPage("~/Views/Home/BlockProduct3.cshtml")
+<hr />
+
+@RenderPage("~/Views/Home/BlockProduct4.cshtml")
+<hr />
+
+
+
+
