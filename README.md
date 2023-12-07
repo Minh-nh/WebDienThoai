@@ -1,7 +1,4 @@
 # DoAn_BanDienThoai
-## Danh sach thanh vien
-* Lê Tấn Tài 18DH110026
-* Lã Hoành Nam 17DH110921
 ## Mo ta de tai
 <ul>
     <ul>
